@@ -14,11 +14,12 @@ def prep_follower_dataset(followers_path, labels_path, test_size, features=['fol
 
     followers_data = pd.read_csv(followers_path,
                                  delimiter=',',
-                                 header=None,
                                  names=['user_id', 'username', 'profile_pic', 'followers_count', 'following_count', 'num_posts', 'bio', 'isPrivate'],
                                  usecols=features,
                                  )
+    #converting isPrivate from string to boolean
     followers_data['isPrivate'] = followers_data['isPrivate'].map({'True': True, 'False': False})
+    #removing nan values
     followers_data[['followers_count', 'following_count', 'num_posts']] = followers_data[['followers_count', 'following_count', 'num_posts']].apply(pd.to_numeric, errors='coerce')
     followers_data = followers_data.fillna(0)
 
@@ -37,4 +38,4 @@ def prep_follower_dataset(followers_path, labels_path, test_size, features=['fol
     result = pd.merge(followers_data, labels_data, on=['username', 'username'])
     train, test = train_test_split(result, test_size=test_size)
 
-    return train[['followers_count', 'following_count', 'num_posts']], train['label'], test[['followers_count', 'following_count', 'num_posts']], test['label']
+    return train[features[1:]], train['label'], test[features[1:]], test['label']
