@@ -1,49 +1,39 @@
-import numpy as np
-import sklearn
-from prepare_dataset import prep_follower_dataset
+import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import cross_val_predict
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import precision_score
+from sklearn.metrics import confusion_matrix
+from prepare_dataset import prep_follower_dataset
+from plotting import plot_confusion_matrix
+
 
 folds = 4
 train_xs, train_ys, test_xs, test_ys = prep_follower_dataset(
     account_features=['followers_count', 'following_count'],
-    post_features=['posts_count', 'mean_likes', 'mean_comments'],
+    post_features= ['posts_count', 'mean_likes', 'mean_comments'],
     features_to_scale=['followers_count', 'following_count'] + ['posts_count', 'mean_likes', 'mean_comments'],
-    new_one=False,
-    folds=folds)
+    new_one=True,
+    folds=None)
 
 models = [
-    #LogisticRegression(random_state=0, solver='liblinear'),
-    SVC(),
-    #KNeighborsClassifier(5)
+    LogisticRegression(random_state=0, solver='liblinear'),
+    SVC(probability=True),
+    KNeighborsClassifier(5)
 ]
 
+scoring = ['average_precision', 'roc_auc', 'f1_micro']
 
 for model in models:
-    ap_scores = []
-    roc_auc_scores = []
-    prec_scores = []
     print('\n' + type(model).__name__ + '\n')
-    for i in range(folds):
-        print('Fold ' + str(i))
-        classifier = model.fit(train_xs[i], train_ys[i])
-        if isinstance(model, SVC):
-            proba_prediction = classifier.decision_function(test_xs[i])
-            class_zero_confidence = proba_prediction
-        else:
-            proba_prediction = classifier.predict_proba(test_xs[i])
-            class_zero_confidence = [p[0] for p in proba_prediction]
-        prediction = classifier.predict(test_xs[i])
-        ap_scores.append(average_precision_score(test_ys[i], class_zero_confidence))
-        roc_auc_scores.append(roc_auc_score(test_ys[i], class_zero_confidence))
-        prec_scores.append(precision_score(test_ys[i], prediction))
-        print('AP: ' + str(ap_scores[i]))
-        print('ROC AUC: ' + str(roc_auc_scores[i]))
-        print('Precision: ' + str(prec_scores[i]))
-    print('AVG AP: ' + str(np.average(ap_scores)))
-    print('AVG ROC AUC: ' + str(np.average(roc_auc_scores)))
-    print('AVG Precision: ' + str(np.average(prec_scores)))
+    scores = cross_validate(model, train_xs, train_ys, cv=4, scoring=scoring, return_train_score=False)
+    predicted = cross_val_predict(model, train_xs, train_ys, cv=4)
+
+    for score in scoring:
+        print(score + ' mean: ' + str(scores['test_' + score].mean()))
+
+    cnf_matrix = confusion_matrix(train_ys, predicted)
+    plt.figure()
+    plot_confusion_matrix(cnf_matrix, ['Other', 'Consumer'], title=type(model).__name__)
+    plt.show()
