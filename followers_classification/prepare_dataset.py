@@ -16,7 +16,10 @@ def prep_follower_dataset(account_features=[], post_features=[], features_to_sca
         if not folds:
             x_train_sets = pd.read_csv('data/test/xs.csv', usecols=features)
             y_train_sets = pd.read_csv('data/test/ys.csv', usecols=['label']).as_matrix().ravel()
-            print('users in dataset: ' + str(x_train_sets.shape[0]))
+            num_others = y_train_sets.sum()
+            print('consumers in dataset: ' + str(y_train_sets.shape[0] - num_others))
+            print('others in dataset: ' + str(num_others))
+
         else:
             for i in range(folds):
                 x_train_sets.append(pd.read_csv('data/test/train_xs_' + str(i) + '.csv', usecols=features))
@@ -38,7 +41,9 @@ def prep_follower_dataset(account_features=[], post_features=[], features_to_sca
             x_train_sets = result[features]
             y_train_sets = result['label']
             write_dataset_csv(result, features)
-            print('users in dataset: ' + str(x_train_sets.shape[0]))
+            num_others = y_train_sets.sum()
+            print('consumers in dataset: ' + str(y_train_sets.shape[0] - num_others))
+            print('others in dataset: ' + str(num_others))
         else:
             kf = KFold(n_splits=folds, shuffle=True)
             i = 0
@@ -72,14 +77,22 @@ def get_labels():
 
 
 def get_follower_accounts(features, users=None):
-    names = ['user_id', 'username', 'profile_pic', 'followers_count', 'following_count',
-             'num_posts', 'bio', 'isPrivate']
+    names = ['id_user', 'username', 'profile_pic_url', 'followers_count', 'following_count', 'num_posts', 'biography',
+             'isPrivate']
     stop_words = ['and', 'or', 'before', 'a', 'an', 'the', 'bio', 'is', 'all', 'to', 'for', 'by', 'in', 'of', 'we',
                   'our', 'at', 'my', 'be']
+    brands = ['athenaprocopiou', 'daftcollectionofficial', 'dodobaror', 'emporiosirenuse', 'heidikleinswim',
+              'lisamariefernandez', 'loupcharmant', 'miguelinagambaccini', 'muzungusisters', 'zeusndione']
     features.insert(0, 'username')
-    followers_data = pd.read_csv('data/users.csv', delimiter=',', names=names)
 
+    # reading accounts data
+    followers_data = pd.DataFrame(columns=names)
+    for brand in brands:
+        followers_data = followers_data.append(pd.read_csv(
+            '../EMPORIOSIRENUSE_20173012/' + brand + '/followers data/' + brand + '_followers_accounts.csv'))
     # cleaning
+    followers_data.rename(index=str, columns={"biography": "bio"}, inplace=True)
+    followers_data.drop_duplicates(subset='id_user', inplace=True)
     followers_data['bio'] = followers_data['bio'].fillna('bio')
     followers_data['bio'] = followers_data['bio'].apply(clean_bios)
     followers_data[['followers_count', 'following_count', 'num_posts']] = followers_data[
@@ -97,7 +110,6 @@ def get_follower_accounts(features, users=None):
                                           vocabulary=['fashion', 'com', 'life', 'designer', 'director', 'love',
                                                       'london', 'me', 'creative', 'founder', 'gmail', 'with', 'lover',
                                                       'stylist', 'travel'])
-
         cons_x = cons_vectorizer.fit_transform(followers_data['bio'])
         followers_data['cons_bio_sim'] = pd.Series(np.squeeze(np.asarray(cons_x.sum(axis=1))))
     if 'oth_bio_sim' in features:
