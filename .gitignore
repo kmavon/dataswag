@@ -1,4 +1,8 @@
 .ipynb_checkpoints
+
 *.csv
+
 .idea
 __pycache__
+
+/pics_to_rank
