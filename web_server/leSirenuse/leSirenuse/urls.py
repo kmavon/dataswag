@@ -20,4 +20,5 @@ from img_upload import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('img_upload/', views.img_upload),
+    path('get_ranked_pics/', views.get_ranked_pics),
 ]

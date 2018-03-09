@@ -36,3 +36,25 @@ rect.draggable({
 , maxY: 654.9
 , snapToGrid: 10
 })
+
+$(document).ready(function() {
+    $.ajax({
+            url: 			'http://localhost:8000/get_ranked_pics/',
+            method:			'POST',
+            dataType:       'json',
+            success: function( data )
+            {
+                $("#align-items-flex-start").html('<div class="cont-post"><div class="post rank1 selected-post">1</div><div class="score">score ' + data['rank'][0]['score'] + '</div></div>');
+                for (var i = 1; i < data['rank'].length; i++){
+                    $("#align-items-flex-start").append(
+                        '<div class="cont-post"><div class="post rank' + (i + 1) + '">' + (i + 1) +'</div><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
+                    );
+                }
+            },
+            error: function()
+            {
+                alert( 'Error. Please, contact the webmaster!' );
+            }
+        });
+    
+}); 

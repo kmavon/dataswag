@@ -1,8 +1,6 @@
 .ipynb_checkpoints
-
 *.csv
-
 .idea
 __pycache__
-
-/pics_to_rank
+/media
+/EMPORIOSIRENUSE_20173012

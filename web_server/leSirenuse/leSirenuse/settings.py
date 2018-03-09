@@ -128,8 +128,6 @@ CSRF_TRUSTED_ORIGINS = (
     'localhost',
 )
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../img_upload/pics_to_rank/')
-
-MEDIA_URL = '../img_upload/pics_to_rank/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
