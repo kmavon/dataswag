@@ -2,5 +2,7 @@
 *.csv
 .idea
 __pycache__
-/media
+web_server/leSirenuse/media/
 /EMPORIOSIRENUSE_20173012
+._*
+web_server/leSirenuse/static/admin

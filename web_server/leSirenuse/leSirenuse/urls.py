@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from img_upload import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('img_upload/', views.img_upload),
     path('get_ranked_pics/', views.get_ranked_pics),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(
+    settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
