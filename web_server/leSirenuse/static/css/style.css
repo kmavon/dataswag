@@ -1,5 +1,5 @@
 /*General*/
-p {
+p, a {
   font-family: 'Inconsolata';
   color: #4e445f;
 }
@@ -10,6 +10,15 @@ h5 {
   font-size: 1.55rem;
 }
 
+a {
+  text-decoration: underline;
+  color: #4d7a89;
+}
+
+a:hover {
+  font-weight: 700;
+  cursor: pointer;
+}
 
 /*First-Page-Upload*/
 
@@ -41,8 +50,10 @@ height: 82vh;
 border-right: 2px solid #4d7a89;
 }
 
-#wip{
+.settings{
   text-align: center;
+  margin: 30vh auto;
+
 }
 
 .reccomender, .clustering{
