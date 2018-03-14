@@ -38,8 +38,7 @@ rect.draggable({
 })
 */
 
-rank_images = function() {
-	console.log('puppa')
+rank_images = function(target) {
     $.ajax({
             url: 			'http://localhost:8000/get_ranked_pics/',
             method:			'POST',
@@ -65,8 +64,7 @@ rank_images = function() {
 
 $('#target_select').change( function () {
 	target = $('#target_select').val();
-	console.log(target)
-	rank_images();
+	rank_images(target);
 });
 
 $(document).ready(function() {
@@ -81,6 +79,48 @@ $(document).ready(function() {
         GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
     }
 	target = GET['target']
-	rank_images();
+	rank_images(target);
 }); 
+
+$("svg").find("#cluster-3").click(function(){
+	$('#first-squid').css('display', 'none');
+	$('#cluster3-asDefault').css('display', 'inline');
+	$('#cluster4-asDefault').css('display', 'none');
+	rank_images(3)
+});
+
+$("svg").find("#cluster-4").click(function(){
+	$('#first-squid').css('display', 'none');
+	$('#cluster3-asDefault').css('display', 'none');
+	$('#cluster4-asDefault').css('display', 'inline');
+	rank_images(4)
+});
+
+$("svg").find("#cluster-1-viz2").click(function(){
+	$('#first-squid').css('display', 'inline');
+	$('#cluster3-asDefault').css('display', 'none');
+	$('#cluster4-asDefault').css('display', 'none');
+	rank_images(1)
+});
+
+$("svg").find("#cluster-4-viz2").click(function(){
+	$('#first-squid').css('display', 'none');
+	$('#cluster3-asDefault').css('display', 'none');
+	$('#cluster4-asDefault').css('display', 'inline');
+	rank_images(4)
+});
+
+$("svg").find("#lab-cluster1-viz3").click(function(){
+	$('#first-squid').css('display', 'inline');
+	$('#cluster3-asDefault').css('display', 'none');
+	$('#cluster4-asDefault').css('display', 'none');
+	rank_images(1)
+});
+
+$("svg").find("#lab-cluster3-viz3").click(function(){
+	$('#first-squid').css('display', 'none');
+	$('#cluster3-asDefault').css('display', 'inline');
+	$('#cluster4-asDefault').css('display', 'none');
+	rank_images(3)
+});
 

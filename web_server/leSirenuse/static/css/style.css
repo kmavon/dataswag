@@ -8,6 +8,7 @@ h5 {
   font-family: 'Poppins';
   color: #4e445f;
   font-size: 1.55rem;
+  vertical-align: middle;
 }
 
 
@@ -105,8 +106,7 @@ padding: 40px 0px 40px 0px;
 }
 
 #firstpage-title{
-  /*font-weight: 700;*/
-  margin-top: -15px;
+  vertical-align: center;
   margin-left: 50px;
   display: inline-flex;
 }
@@ -290,4 +290,5 @@ padding: 3px 5px -1px 10px;
 
 #test-plot{
   border: 1px solid #A3C9D5;
+  margin: 0  1.5vw;
 }
