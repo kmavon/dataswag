@@ -120,6 +120,7 @@ padding: 40px 0px 40px 0px;
   vertical-align: center;
   margin-left: 50px;
   display: inline-flex;
+  line-height: 275%;
 }
 
 .btn-secondary {
@@ -196,12 +197,12 @@ padding: 40px 0px 40px 0px;
 }
 
 
-/*images-classes-for-photos-END*/
+images-classes-for-photos-END
 
 .selected-post {
   border: 8px solid #FFDD78;
-  /*border-radius: 5px;*/
-}
+  border-radius: 5px;
+}*/
 
 #align-items-flex-start{
   border-bottom: 0.1rem solid #4d7a89;
@@ -302,4 +303,15 @@ padding: 3px 5px -1px 10px;
 #test-plot{
   border: 1px solid #A3C9D5;
   margin: 0  1.5vw;
+}
+
+#back{
+	position: fixed;
+	z-index: 1;
+}
+
+.cont-post{
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
 }

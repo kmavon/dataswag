@@ -1,43 +1,3 @@
-/*SVG.wrap = function(node) {
-    /* Wrap an existing node in an SVG.js element. This is a slight hack
-     * because svg.js does not (in general) provide a way to create an
-     * Element of a specific type (eg SVG.Ellipse, SVG.G, ...) from an
-     * existing node and still call the Element's constructor.
-     *
-     * So instead, we call the Element's constructor and delete the node
-     * it created (actually, just leaving it to garbage collection, since it
-     * hasn't been inserted into the doc yet), replacing it with the given node.
-     *
-     * Returns the newly created SVG.Element instance.
-     
-    if (node.length) node = node[0];    // Allow using with or without jQuery selections
-    var element_class = capitalize(node.nodeName);
-    try {
-        var element = new SVG[element_class];
-    } catch(e) {
-        throw("No such SVG type '"+element_class+"'");
-    }
-    element.node = node;
-    return element;
-};
-
-function capitalize(string) {
-    if (!string) return string;
-    return string[0].toUpperCase() + string.slice(1);
-}
-
-var rect = SVG.wrap($('#Livello_4'))
-
-
-rect.draggable({
-  minX: -230.5
-, minY: -654.9
-, maxX: 280.5
-, maxY: 654.9
-, snapToGrid: 10
-})
-*/
-
 rank_images = function(target) {
     $.ajax({
             url: 			'http://localhost:8000/get_ranked_pics/',
@@ -124,3 +84,36 @@ $("svg").find("#lab-cluster3-viz3").click(function(){
 	rank_images(3)
 });
 
+$(".dropdown-menu").find("#c1").click(function(){
+	$('#dropdownMenuButton').html('Cluster 1');
+	rank_images(1);
+});
+
+$(".dropdown-menu").find("#c2").click(function(){
+	$('#dropdownMenuButton').html('Cluster 2');
+	rank_images(2);
+});
+
+$(".dropdown-menu").find("#c3").click(function(){
+	$('#dropdownMenuButton').html('Cluster 3');
+	rank_images(3);
+});
+
+$(".dropdown-menu").find("#c4").click(function(){
+	$('#dropdownMenuButton').html('Cluster 4');
+	rank_images(4);
+});
+
+$(".dropdown-menu").find("#c5").click(function(){
+	$('#dropdownMenuButton').html('Cluster 5');
+	rank_images(5);
+});
+
+$(".dropdown-menu").find("#c6").click(function(){
+	$('#dropdownMenuButton').html('Cluster 6');
+	rank_images(6);
+});
+
+$("svg").find("#Path-3").click(function(){
+	window.location = 'http://localhost:8000/es_tool/index.html'
+});

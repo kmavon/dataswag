@@ -1,22 +1,21 @@
-import matplotlib.pyplot as plt
-from sklearn.model_selection import cross_validate
-from sklearn.model_selection import cross_val_predict
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import recall_score
+from sklearn.metrics import precision_score
 from prepare_dataset import prep_follower_dataset
-from plotting import plot_confusion_matrix
+from sklearn.metrics import confusion_matrix
 
-
-folds = 4
+folds = 3
 train_xs, train_ys, test_xs, test_ys = prep_follower_dataset(
-    account_features=['num_posts', 'cons_bio_sim', 'oth_bio_sim', 'followers_count', 'following_count'],
-    post_features=['posts_count'],# 'mean_likes', 'mean_comments'],
-    features_to_scale=['num_posts', 'cons_bio_sim', 'oth_bio_sim', 'posts_count', 'followers_count', 'following_count'],
+    account_features=['face', 'text', 'cons_bio_sim', 'oth_bio_sim'],
+    post_features=['posts_count'],
+    derived_features=['likes_per_follower'],
+    features_to_scale=['posts_count', 'likes_per_follower'],
     new_one=False,
-    folds=None)
+    folds=folds)
 
 models = [
     LogisticRegression(random_state=0, solver='liblinear'),
@@ -25,16 +24,23 @@ models = [
     RandomForestClassifier()
 ]
 
-scoring = ['precision', 'recall', 'roc_auc', 'f1_micro', 'f1_macro']
+precision_scores = []
+recall_scores = []
 
 for model in models:
     print('\n' + type(model).__name__ + '\n')
-    scores = cross_validate(model, train_xs, train_ys, cv=folds, scoring=scoring, return_train_score=False)
-    predicted = cross_val_predict(model, train_xs, train_ys, cv=folds)
-    for score in scoring:
-        print(score + ' mean: ' + str(scores['test_' + score].mean()))
-    cnf_matrix = confusion_matrix(train_ys, predicted)
-    plt.figure()
-    plot_confusion_matrix(cnf_matrix, ['Consumer', 'Other'], title=type(model).__name__)
-
-plt.show()
+    fold_rec = []
+    fold_prec = []
+    for i in range(folds):
+        # predicted_scores = model.predict_proba(test_xs[i])
+        predicted = model.fit(train_xs[i], train_ys[i]).predict(test_xs[i])
+        rec = recall_score(test_ys[i], predicted)
+        prec = precision_score(test_ys[i], predicted)
+        print('recall: ' + str(rec))
+        print('precision: ' + str(prec))
+        fold_rec.append(rec)
+        fold_prec.append(prec)
+        cm = confusion_matrix(test_ys[i], predicted)
+        print(cm)
+    print('recall mean: ' + str(np.mean(fold_rec)))
+    print('precision mean: ' + str(np.mean(fold_prec)))
