@@ -1,12 +1,17 @@
 import pandas as pd
 import numpy as np
 import re
+import datetime
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import KFold
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.mixture import GaussianMixture
 import cv2
 import os
 import pytesseract
+
+CONSUMERS_AVG_N_POST = 160
+OTHERS_AVG_N_POST = 335
 
 
 def build_datasets(users, folds=3):
@@ -18,9 +23,18 @@ def build_datasets(users, folds=3):
         i += 1
 
 
-def get_entire_dataset():
+def get_entire_dataset(features):
     result = pd.read_csv('data/result.csv')
-    return result.drop(columns=['label', 'username']), result['label']
+    return result[features], result['label']
+
+
+def impute_n_posts(row):
+    if row['posts_count'] == 0:
+        if row['label'] == 0:
+            row['posts_count'] = CONSUMERS_AVG_N_POST
+        else:
+            row['posts_count'] = OTHERS_AVG_N_POST
+    return row['posts_count']
 
 
 def prep_follower_dataset(account_features=[], post_features=[], derived_features=[], features_to_scale=[], new_one=False):
@@ -32,6 +46,9 @@ def prep_follower_dataset(account_features=[], post_features=[], derived_feature
     if 'bios' in derived_features:
         features.remove('bios')
         features = features + ['cons_bio', 'oth_bio']
+        features_to_scale = features_to_scale + ['cons_bio', 'oth_bio']
+    if 'f2f' in derived_features:
+        account_features = account_features + ['followers_count', 'following_count']
     if 'tags' in derived_features:
         features.remove('tags')
         features = features + ['tag var', 'tag mean']
@@ -50,7 +67,7 @@ def prep_follower_dataset(account_features=[], post_features=[], derived_feature
                 x_train_sets.append(pd.read_csv('data/datasets/train_xs_' + str(i) + '.csv', usecols=features))
                 x_test_sets.append(pd.read_csv('data/datasets/test_xs_' + str(i) + '.csv', usecols=features))
                 y_train_sets.append(pd.read_csv('data/datasets/train_ys_' + str(i) + '.csv', usecols=['label']).as_matrix().ravel())
-                y_test_sets.append(pd.read_csv('data/datasets/test_ys_' + str(i) + '.csv', usecols=['label']).as_matrix().ravel())
+                y_test_sets.append(pd.read_csv('data/datasets/test_ys_' + str(i) + '.csv'))
                 print('users in train set: ' + str(x_train_sets[0].shape[0]))
                 print('users in test set: ' + str(x_test_sets[0].shape[0]))
     else:
@@ -63,6 +80,7 @@ def prep_follower_dataset(account_features=[], post_features=[], derived_feature
             follower_posts = pd.read_csv('data/features/follower_posts.csv')
             result = pd.merge(result, follower_posts[post_features + ['username']],  on='username', how='left')
             result.fillna(0, inplace=True)
+            result['posts_count'] = result.apply(impute_n_posts, axis=1)
         if 'face' in derived_features:
             faces = pd.read_csv('data/features/faces.csv')
             result = result.merge(faces, on='username', how='outer')
@@ -96,12 +114,12 @@ def prep_follower_dataset(account_features=[], post_features=[], derived_feature
                 x_train = result.merge(train_users, on='username')[features]
                 x_test = result.merge(test_users, on='username')[features]
                 y_train = result.merge(train_users, on='username')['label']
-                y_test = result.merge(test_users, on='username')['label']
+                y_test = result.merge(test_users, on='username')[['username', 'label']]
 
                 x_train_sets.append(x_train)
                 x_test_sets.append(x_test)
                 y_train_sets.append(y_train.ravel())
-                y_test_sets.append(y_test.ravel())
+                y_test_sets.append(y_test)
 
                 x_train.to_csv('data/datasets/train_xs_' + str(i) + '.csv', index=False)
                 x_test.to_csv('data/datasets/test_xs_' + str(i) + '.csv', index=False)
@@ -135,7 +153,7 @@ def get_follower_accounts(users=None):
 
     # cleaning
     followers_data.rename(index=str, columns={"biography": "bio"}, inplace=True)
-    followers_data.drop_duplicates(subset='id_user', inplace=True)
+    followers_data.drop_duplicates(subset='username', inplace=True)
     followers_data['bio'] = followers_data['bio'].fillna('BIOGRAPHYPLACEHOLDER')
     followers_data['bio'] = followers_data['bio'].apply(clean_bios)
     followers_data[['followers_count', 'following_count', 'num_posts']] = followers_data[
@@ -157,11 +175,11 @@ def get_follower_posts(users=None):
               'lisamariefernandez', 'loupcharmant', 'miguelinagambaccini', 'muzungusisters', 'zeusndione']
 
     # reading posts data
-    posts_data = pd.DataFrame(columns=['username', 'id_post', 'likes_count', 'comment_count', 'caption'])
+    posts_data = pd.DataFrame()
     for brand in brands:
         posts_data = posts_data.append(pd.read_csv(
             '../EMPORIOSIRENUSE_20173012/' + brand + '/followers data/' + brand + '_followers_posts.csv',
-            usecols=['username', 'id_post', 'likes_count', 'comment_count', ''], converters={'caption': clean_bios}))
+            usecols=['username', 'id_post', 'likes_count', 'comment_count', 'taken_at_timestamp'], converters={'caption': clean_bios}))
 
     # posts data cleaning
     posts_data.drop_duplicates(subset='id_post', inplace=True)
@@ -171,6 +189,7 @@ def get_follower_posts(users=None):
         posts_data = users.merge(posts_data, on='username')
 
     # aggregating posts data to get user features
+    #posting_days = get_posting_regularity(posts_data)
     posts_count = posts_data.groupby(['username']).count()['id_post'].to_frame().reset_index()
     posts_mean_likes = posts_data.groupby(['username']).mean()['likes_count'].to_frame().reset_index()
     posts_mean_comments = posts_data.groupby(['username']).mean()['comment_count'].to_frame().reset_index()
@@ -179,7 +198,9 @@ def get_follower_posts(users=None):
     posts_mean_comments = posts_mean_comments.rename(index=str, columns={"comment_count": "mean_comments"})
 
     # merging features to produce result
-    result = pd.merge(pd.merge(posts_count, posts_mean_likes, on='username'), posts_mean_comments, on='username')
+    result = pd.merge(posts_count, posts_mean_likes, on='username')
+    result = pd.merge(result, posts_mean_comments, on='username')
+    #result = pd.merge(result, posting_days, on='username')
     result.to_csv('data/features/follower_posts.csv', index=False, header=True)
     return result
 
@@ -255,6 +276,14 @@ def get_text():
     return users_text
 
 
+def entropy(X, posts_count):
+    print(X)
+    X /= posts_count
+    logX = np.log(X)
+    print(-np.sum(np.multiply(X, logX)))
+    return -np.sum(np.multiply(X, logX))
+
+
 def get_tags_mentions_vects():
     brands = ['athenaprocopiou', 'daftcollectionofficial', 'dodobaror', 'emporiosirenuse', 'heidikleinswim',
               'lisamariefernandez', 'loupcharmant', 'miguelinagambaccini', 'muzungusisters', 'zeusndione']
@@ -281,7 +310,7 @@ def get_tags_mentions_vects():
 
     tags.drop(columns='label', inplace=True)
     tags.drop_duplicates(subset=['id_post', 'tag'], inplace=True)
-    tags = tags.groupby(['username', 'tag']).count().groupby('username').agg(['var', 'mean'])
+    tags = tags.groupby(['username', 'tag']).count().groupby('username').agg(['mean', 'var'])
     tags.reset_index(inplace=True)
     tags.rename(index=str, columns={'id_post': 'tag'}, inplace=True)
     tags.columns = [' '.join(col).strip() for col in tags.columns.values]
@@ -289,8 +318,36 @@ def get_tags_mentions_vects():
 
     mentions.drop(columns='label', inplace=True)
     mentions.drop_duplicates(subset=['id_post', 'mention'], inplace=True)
-    mentions = mentions.groupby(['username', 'mention']).count().groupby('username').agg(['var', 'mean'])
+    mentions = mentions.groupby(['username', 'mention']).count().groupby('username').agg(['mean', 'var'])
     mentions.reset_index(inplace=True)
     mentions.rename(index=str, columns={'id_post': 'mention'}, inplace=True)
     mentions.columns = [' '.join(col).strip() for col in mentions.columns.values]
     mentions.to_csv('data/features/mentions_vects.csv', index=False, header=True)
+
+
+def gen_date_from_timestamp(timestamp):
+    return int(datetime.datetime.fromtimestamp(int(timestamp)).timetuple().tm_yday)
+
+
+def get_posting_regularity(posts_data):
+    posting_date = posts_data[['taken_at_timestamp', 'username', 'id_post']]
+    posting_date.fillna(0.0, inplace=True)
+    posting_date['taken_at_timestamp'] = posting_date['taken_at_timestamp'].apply(gen_date_from_timestamp)
+    posting_days = posting_date.groupby(['username'], as_index=False)['taken_at_timestamp'].count()
+    print(posting_date.head())
+    posting_variance = posting_date.groupby(['username'], as_index=False)['taken_at_timestamp'].agg()
+    print(posting_variance.head())
+    return posting_days.merge(posting_variance, on='username')
+
+
+def get_cost_files():
+    labels = get_labels()
+    posts_data = pd.read_csv('data/features/follower_posts.csv').merge(labels, on='username', how='right')
+    posts_data.drop(columns='label', inplace=True)
+    for root, dirs, files in os.walk('data/kfoldsplit/'):
+        for i in range(len(files) // 2):
+            test_users = pd.read_csv('data/datasets/test_ys_' + str(i) + '.csv')
+            test_posts = test_users.merge(posts_data, how='left', on='username')
+            test_posts.fillna(0, inplace=True)
+            test_posts['posts_count'] = test_posts.apply(impute_n_posts, axis=1)
+            test_posts[['username', 'posts_count']].to_csv('data/cost/cost' + str(i) + '.csv', index=False)

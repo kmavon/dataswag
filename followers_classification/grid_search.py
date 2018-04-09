@@ -1,23 +1,20 @@
 import numpy as np
-from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import VotingClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from prepare_dataset import get_entire_dataset
 
-models = [
-    LogisticRegression(random_state=1, solver='liblinear', class_weight='balanced'),
-    SVC(probability=True, kernel='rbf', class_weight='balanced'),
-    GaussianNB(),
-    GradientBoostingClassifier(n_estimators=1000, learning_rate=0.1, max_depth=100, random_state=1)
-]
+model = RandomForestClassifier(max_features=None, class_weight='balanced', n_jobs=8)
 
-xs, ys = get_entire_dataset()
-params = {'gamma': np.arange(0.1, 1.0, 0.1), 'C': np.arange(0.1, 5.0, 0.1)}
-grid = GridSearchCV(estimator=models[1], param_grid=params, cv=3, scoring='f1', n_jobs=8)
+xs, ys = get_entire_dataset(['posts_count', 'face', 'text', 'f2f']) #, 'mention var', 'mention mean', 'tag var', 'tag mean'])
+# params = {'hidden_layer_sizes': [(x, y) for x in np.arange(5, 40, 5) for y in np.arange(5, 40, 5)],
+#           'alpha': np.arange(0.1, 1.0, 0.1)}
+# params = {'kernel': ['sigmoid', 'rbf'], 'C': np.arange(0.1, 1, 0.1), 'gamma': np.arange(0.1, 1.0, 0.1)}
+# params = {'C': np.arange(0.1, 3, 0.1), 'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']}
+params = {'n_estimators': np.arange(10, 100, 5), 'criterion': ['gini', 'entropy']}
+grid = GridSearchCV(estimator=model, param_grid=params, cv=3, scoring='recall', n_jobs=8)
 grid.fit(xs, ys)
 print(grid.best_score_)
 print(grid.best_params_)
