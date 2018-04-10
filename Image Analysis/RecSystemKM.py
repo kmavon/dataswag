@@ -22,7 +22,7 @@ class ClusteringKM:
         self.train_path = train_path
         self.save_path = save_path
         
-""""    #Helper Function to get images from train path
+    '''#Helper Function to get images from train path
     def get_train_images(self, user_list):
         list_users = user_list
         self.train_imgs = {}
@@ -32,16 +32,18 @@ class ClusteringKM:
                 file_name = j.replace(temp_path,'')[1:]
                 img = io.imread(j)
                 self.train_imgs[(i,file_name)] = img 
+        print("Number of images loaded:", len(self.train_imgs))'''
+
+    def get_train_images(self, train_path, user_list):
+        #list_users = user_list
+        self.train_imgs = {}
+        print(len(user_list))
+        for i in user_list:
+            file_name = i
+            img = io.imread(train_path+str(i)+'.jpg')
+            print(train_path+str(i)+'.jpg')
+            self.train_imgs[(i,file_name)] = img 
         print("Number of images loaded:", len(self.train_imgs))
-    """"
-    def get_train_images(self, user_list):
-    #list_users = user_list
-    self.train_imgs = {}
-    for i in user_list:
-        img = io.imread(train_path+str(i)+'.jpg')
-        
-        self.train_imgs[(i,file_name)] = img 
-    print("Number of images loaded:", len(self.train_imgs))
 
     
     #Helper function to convert image to d-dimension vector for each image and 
@@ -231,3 +233,38 @@ class Ranking:
                 temp_dist.append(np.linalg.norm(df.iloc[i,14:14+k].astype(float)-model.cluster_centers_[j]))
             final_dict[temp_file] = temp_dist
         return final_dict
+    # Add the prediction to the DF
+    def Predict_to_df(self, df, clustercount): 
+        for i in range(0,cluster_count+1):
+            if i==cluster_count:
+                label = "Prediction"
+                df[label] = model.predict(data)
+                break
+            label = "Prob_" + str(i)
+        df[label] = y_pred[:,i]
+        
+        ### to get KL divrgences
+    def ranking(self,df, community): 
+        KL=[]
+        pic_no = []
+        community = []
+        # make a df with only the probs
+        filter_col = [col for col in df if col.startswith('Prob_')] 
+        probabilities = df[filter_col]
+
+        for i in range(probabilities.shape[0]):
+
+            pic_dist = list(probabilities.iloc[i])
+
+            for v in enumerate(model_user.cluster_centers_):
+                clustercenter = (v[1])
+                KLdiv = stats.entropy(pk=clustercenter, qk=pic_dist)
+                KL.append(KLdiv)
+                pic_no.append(i)
+                community.append((v[0]))
+
+        KLdivergencedf = (pd.DataFrame({"KL_score":KL,"picture_uploaded": pic_no, "community":community}))
+        
+        sorted_df_by_community = (KLdivergencedf[KLdivergencedf['community']==2]).sort_values('KL_score').reset_index()
+        rankedpictures = (list(sorted_df_by_community.picture_number))
+        return(rankedpictures)
