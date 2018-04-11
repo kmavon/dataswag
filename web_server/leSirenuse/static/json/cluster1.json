@@ -1,4 +1,4 @@
-{ "squid1": {
+{ "squid": {
     "center": {
       "name": "cluster1", "size": 750
     },
@@ -6,7 +6,8 @@
        { "name": "cluster0", "size": 1000, "distance": 0.3 },
        { "name": "cluster2", "size": 500, "distance": 0.5 },
        { "name": "cluster3", "size": 250, "distance": 0.1 },
-       { "name": "cluster4", "size": 100, "distance": 0.9 }
+       { "name": "cluster4", "size": 100, "distance": 0.9 },
+       { "name": "cluster5", "size": 300, "distance": 0.6 }
     ]
   }
 }

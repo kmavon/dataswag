@@ -25,8 +25,8 @@ test_ys = [y['label'].ravel() for y in ys]
 models = [
     LogisticRegression(random_state=1, solver='liblinear', class_weight='balanced', C=0.1),
     SVC(probability=True, kernel='rbf', class_weight='balanced', C=0.5, gamma=0.1),
-    #MLPClassifier(hidden_layer_sizes=(25, 10), activation='tanh', solver='lbfgs', alpha=0.8),
-    #MLPClassifier(hidden_layer_sizes=(20, 45), activation='logistic', solver='lbfgs', alpha=0.4),
+    MLPClassifier(hidden_layer_sizes=(25, 10), activation='tanh', solver='lbfgs', alpha=0.8),
+    MLPClassifier(hidden_layer_sizes=(20, 45), activation='logistic', solver='lbfgs', alpha=0.4),
     RandomForestClassifier(max_features=None, class_weight='balanced', n_jobs=8, n_estimators=60, criterion='entropy')
 ]
 
@@ -35,9 +35,10 @@ for model in models:
     fold_prec = []
     fold_F1 = []
     fold_acc = []
-    fn_posts = 0
-    fp_posts = 0
-    total_posts = 0
+    fn_posts = []
+    fp_posts = []
+    fn_posts_perc = []
+    fp_posts_perc = []
     print('\n')
     print(model.__class__.__name__)
     for i in range(folds):
@@ -55,15 +56,17 @@ for model in models:
         cost = cost.merge(ys[i], on='username', how='right')
         cost = cost.assign(dup=cost.duplicated(subset='username').values)
         cost.to_csv('predictions'+str(i)+'.csv', index=False)
-        total_posts += cost['posts_count'].sum()
-        fn_posts += cost.query('label == 1 & predicted == 0')['posts_count'].sum()
-        fp_posts += cost.query('label == 0 & predicted == 1')['posts_count'].sum()
+        total_posts = cost['posts_count'].sum()
+        fn_posts.append(cost.query('label == 1 & predicted == 0')['posts_count'].sum())
+        fp_posts.append(cost.query('label == 0 & predicted == 1')['posts_count'].sum())
+        fn_posts_perc.append(cost.query('label == 1 & predicted == 0')['posts_count'].sum()/total_posts)
+        fp_posts_perc.append(cost.query('label == 0 & predicted == 1')['posts_count'].sum()/total_posts)
 
     print('recall mean: ' + '%.4f' % np.mean(fold_rec))
     print('precision mean: ' + '%.4f' % np.mean(fold_prec))
     print('F1 mean: ' + '%.4f' % np.mean(fold_F1))
     print('accuracy mean: ' + '%.4f' % np.mean(fold_acc))
-    print('fp posts: ' + '%.1f' % fp_posts +
-          ' (%.2f' % ((fp_posts/total_posts)*100) + '%)')
-    print('fn posts: ' + '%.1f' % fn_posts +
-          ' (%.2f' % ((fn_posts/total_posts)*100) + '%)')
+    print('fp posts: ' + '%.1f' % np.mean(fp_posts) +
+          ' (%.2f' % (np.mean(fp_posts_perc)*100) + '%)')
+    print('fn posts: ' + '%.1f' % np.mean(fn_posts) +
+          ' (%.2f' % (np.mean(fn_posts_perc)*100) + '%)')

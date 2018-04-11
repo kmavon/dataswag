@@ -48,7 +48,7 @@ def get_clusters(request):
     print(settings.STATICFILES_DIRS)
     target=request.POST['target']
 
-    with open(settings.STATICFILES_DIRS[0] + 'json/squid' + str(target) + '.json') as json_data:
+    with open(settings.STATICFILES_DIRS[0] + 'json/'+target+'.json') as json_data:
         d = json.load(json_data)
 
     return HttpResponse(json.dumps(d))
