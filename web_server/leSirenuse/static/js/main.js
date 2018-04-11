@@ -1,9 +1,9 @@
 rank_images = function(target) {
     $.ajax({
-            url: 			'http://localhost:8000/get_ranked_pics/',
+            url: 			  'http://localhost:8000/get_ranked_pics/',
             method:			'POST',
-            dataType:       'json',
-            data:           { 'target': target },
+            dataType:   'json',
+            data:       { 'target': target },
             success: function( data )
             {
                 //$("#align-items-flex-start").html('<div class="cont-post"><div class="post rank1 selected-post">1</div><div class="score">score ' + data['rank'][0]['score'] + '</div></div>');
@@ -22,10 +22,27 @@ rank_images = function(target) {
         });
 };
 
-$('#target_select').change( function () {
-	target = $('#target_select').val();
-	rank_images(target);
-});
+fill_dropdown = function(target) {
+  url = "http://localhost:8000/es_tool/json/" + target + ".json"
+  d3.json(url).then(function(result){
+    var satellites = result.squid.satellites;
+    var center = result.squid.center;
+
+    d3.select("#dropdownMenuButton")
+      .html(center.name);
+
+    var menu = d3.select(".dropdown-menu");
+    menu.selectAll("*").remove();
+    menu.selectAll("a")
+        .data(satellites)
+        .enter()
+        .append("a")
+        .attr("class", "dropdown-item")
+        .attr("href", "#")
+        .attr("onclick", function(d) {return "target_change('" + d.name + "')"; })
+        .html(function(d){ return d.name; });
+    });
+  };
 
 $(document).ready(function() {
 	var GET = {};
@@ -38,82 +55,18 @@ $(document).ready(function() {
         var param = query[i].split("=");
         GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
     }
-	target = GET['target']
+	target = GET['target'];
+  prepare_squid(target);
+  fill_dropdown(target);
 	rank_images(target);
-}); 
-
-$("svg").find("#cluster-3").click(function(){
-	$('#first-squid').css('display', 'none');
-	$('#cluster3-asDefault').css('display', 'inline');
-	$('#cluster4-asDefault').css('display', 'none');
-	rank_images(3)
 });
 
-$("svg").find("#cluster-4").click(function(){
-	$('#first-squid').css('display', 'none');
-	$('#cluster3-asDefault').css('display', 'none');
-	$('#cluster4-asDefault').css('display', 'inline');
-	rank_images(4)
-});
-
-$("svg").find("#cluster-1-viz2").click(function(){
-	$('#first-squid').css('display', 'inline');
-	$('#cluster3-asDefault').css('display', 'none');
-	$('#cluster4-asDefault').css('display', 'none');
-	rank_images(1)
-});
-
-$("svg").find("#cluster-4-viz2").click(function(){
-	$('#first-squid').css('display', 'none');
-	$('#cluster3-asDefault').css('display', 'none');
-	$('#cluster4-asDefault').css('display', 'inline');
-	rank_images(4)
-});
-
-$("svg").find("#lab-cluster1-viz3").click(function(){
-	$('#first-squid').css('display', 'inline');
-	$('#cluster3-asDefault').css('display', 'none');
-	$('#cluster4-asDefault').css('display', 'none');
-	rank_images(1)
-});
-
-$("svg").find("#lab-cluster3-viz3").click(function(){
-	$('#first-squid').css('display', 'none');
-	$('#cluster3-asDefault').css('display', 'inline');
-	$('#cluster4-asDefault').css('display', 'none');
-	rank_images(3)
-});
-
-$(".dropdown-menu").find("#c1").click(function(){
-	$('#dropdownMenuButton').html('Cluster 1');
-	rank_images(1);
-});
-
-$(".dropdown-menu").find("#c2").click(function(){
-	$('#dropdownMenuButton').html('Cluster 2');
-	rank_images(2);
-});
-
-$(".dropdown-menu").find("#c3").click(function(){
-	$('#dropdownMenuButton').html('Cluster 3');
-	rank_images(3);
-});
-
-$(".dropdown-menu").find("#c4").click(function(){
-	$('#dropdownMenuButton').html('Cluster 4');
-	rank_images(4);
-});
-
-$(".dropdown-menu").find("#c5").click(function(){
-	$('#dropdownMenuButton').html('Cluster 5');
-	rank_images(5);
-});
-
-$(".dropdown-menu").find("#c6").click(function(){
-	$('#dropdownMenuButton').html('Cluster 6');
-	rank_images(6);
-});
+target_change = function(target) {
+  rank_images(target);
+  fill_dropdown(target);
+  plot_squid(target);
+}
 
 $("svg").find("#Path-3").click(function(){
-	window.location = 'http://localhost:8000/es_tool/index.html'
+	window.location = 'http://localhost:8000/es_tool/index.html';
 });

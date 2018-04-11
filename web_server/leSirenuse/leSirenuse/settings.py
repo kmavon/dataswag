@@ -131,6 +131,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = (
     'localhost',
+    'localhost:8000'
 )
 
 MEDIA_URL = '/media/'
