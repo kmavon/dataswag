@@ -12,7 +12,7 @@ def img_upload(request):
     print('removing previous files')
     for root, dirs, files in os.walk(settings.MEDIA_ROOT):
         for filename in files:
-            os.remove(settings.MEDIA_ROOT + '/' + filename)
+            os.remove(settings.MEDIA_ROOT + '\\' + filename)
 
     print('saving new files')
     fs = FileSystemStorage()
@@ -38,17 +38,3 @@ def get_ranked_pics(request):
             print(filename + ': ' + str(rank_list[-1]['score']))
     rank['rank'] = rank_list
     return HttpResponse(json.dumps(rank))
-
-
-@csrf_exempt
-def get_clusters(request):
-    # rank = recommender.rank(settings.MEDIA_URL, target=request.POST['target'])
-    # until we actually have a recommender to produce the scores, we'll just
-    # generate a dummy ranking
-    print(settings.STATICFILES_DIRS)
-    target=request.POST['target']
-
-    with open(settings.STATICFILES_DIRS[0] + 'json/'+target+'.json') as json_data:
-        d = json.load(json_data)
-
-    return HttpResponse(json.dumps(d))

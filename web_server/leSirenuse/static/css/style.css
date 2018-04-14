@@ -1,11 +1,11 @@
 /*General*/
 p, a {
-  font-family: 'Inconsolata';
+  font-family: 'Karla';
   color: #4e445f;
 }
 
 h5 {
-  font-family: 'Karla';
+  font-family: 'Inconsolata';
   color: #4e445f;
   font-size: 1.55rem;
   vertical-align: middle;
@@ -19,6 +19,10 @@ a {
 a:hover {
   font-weight: 700;
   cursor: pointer;
+}
+
+body {
+  display: table;
 }
 
 /*First-Page-Upload*/
@@ -121,6 +125,10 @@ padding: 13vh 0vh;
   margin: 0 auto;
 }
 
+.pagetitle {
+  margin-left: 2vw;
+}
+
 #firstpage-title{
   vertical-align: center;
   margin-left: 15px;
@@ -144,8 +152,8 @@ padding: 13vh 0vh;
 /*images-classes-for-photos*/
 
 .post {
-  height: 175px;
-  width: 175px;
+  height: 11vw;
+  width: 11vw;
   /*background-color: #4943a0;*/
   border: 2px solid #4d7a89;
   text-align: center;
@@ -160,56 +168,6 @@ padding: 13vh 0vh;
   background-size: 200px;
 }
 
-/*.rank1 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-
-.rank2 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank3 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank4 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank5 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank6 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank7 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank8 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank9 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank10 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-
-
-images-classes-for-photos-END
-
-.selected-post {
-  border: 8px solid #FFDD78;
-  border-radius: 5px;
-}*/
-
 
 .score {
   text-align: center;
@@ -220,11 +178,12 @@ images-classes-for-photos-END
 .hidden-overflow {
   overflow: hidden;
   width: 80vw;
+  margin-left: 2vw;
 }
 
 .align-items {
   display: flex;
-  height: 70vh;
+  height: 57vh;
   width: auto;
 }
 
@@ -309,20 +268,27 @@ padding: 3px 5px -1px 10px;
   margin: 0  1.5vw;
 }
 
+/*Single Post Page*/
+
 #back{
 	position: fixed;
 	z-index: 1;
 }
 
 .cont-post{
-	width: 200px;
-	height: 200px;
+	width: 15vw;
+	height: 12vw;
 	overflow: hidden;
 }
 
 .post-single {
+<<<<<<< HEAD
   width: 300px;
   height: 300px;
+=======
+  width: 22vw;
+  height: 22vw;
+>>>>>>> fc9dffe485a8f390ad66ac8bf72b19600e6f8afb
 }
 
 .page-title {
@@ -336,13 +302,31 @@ padding: 3px 5px -1px 10px;
 .caption-container {
   border: 1px solid #578290;
   height: 65%;
+  position: relative;
+
+}
+
+#caption-edit{
+
+  margin: 10px 0px 0px 15px;
+  color: #578290;
+  font-family: 'Inconsolata';
+  overflow-y: scroll;
+  height: 150px;
+  overflow: hidden;
+  outline: none;
+
 }
 
 .graph-container {
-  width: 86%;
+  width: 22vw;
   height: 100%;
   border: 1px solid #578290;
   margin-left: 0px;
+}
+
+#competitors-par {
+  width: 22vw;
 }
 
 .single-content-second{
@@ -360,10 +344,12 @@ padding: 3px 5px -1px 10px;
 .copy-btn {
   width: 95px;
   height: 32px;
-  position: relative;
-  bottom: -18vh;
-  right: -44vw;
-  border: 1px solid #578290;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top: 1px solid #578290;
+  border-left:1px solid #578290;
+  cursor: pointer;
 }
 
 #copy{
@@ -379,6 +365,20 @@ padding: 3px 5px -1px 10px;
   top: 42vh;
   transform: rotate(180deg);
 }
+
+.loader-box {
+
+    background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+    width: 100px;
+    text-align: center;
+    color:  white;
+    height: 30px;
+    margin: 41vh auto;
+    padding: 3px;
+}
+
+
+/*--------------SOLO PER RESIZE ----------*/
 @media screen and (max-width: 1280px){
   .box{
     height: 471px;
@@ -399,10 +399,13 @@ padding: 3px 5px -1px 10px;
   .caption-container {
     border: 1px solid #578290;
     height: 60%;
+    position: relative;
   }
-
+  #competitors-par{
+    width: 25vw;
+  }
   .post-single {
-    width: 260px;
-    height: 260px;
+    width: 22vw;
+    height: 22vw;
   }
 }
