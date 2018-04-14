@@ -6,13 +6,18 @@ rank_images = function(target) {
             data:       { 'target': target },
             success: function( data )
             {
-                //$("#align-items-flex-start").html('<div class="cont-post"><div class="post rank1 selected-post">1</div><div class="score">score ' + data['rank'][0]['score'] + '</div></div>');
-                $("#align-items-flex-start").html('<div class="cont-post"><img src="' + data['rank'][0]['pic_url'] + '" class="post ranked selected-post"><div class="score">score ' + data['rank'][0]['score'] + '</div></div>');
-                for (var i = 1; i < data['rank'].length; i++){
-                    $("#align-items-flex-start").append(
-                        '<div onclick="nextpage(1)" class="cont-post"><img src="' + data['rank'][i]['pic_url'] + '" class="post ranked"><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
-                        //'<div class="cont-post"><div class="post rank' + (i + 1) + '">' + (i + 1) +'</div><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
-                    );
+				$("#align-items-flex-start").html("");
+                for (var i = 0; i < data['rank'].length; i++){
+					if ((i+1) % 3) {	
+						$("#align-items-flex-start").append(
+							'<div class="cont-post"><div class="post-number">'+(i+1)+'</div><img src="' + data['rank'][i]['pic_url'] + '" class="post ranked"><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
+							//'<div class="cont-post"><div class="post rank' + (i + 1) + '">' + (i + 1) +'</div><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
+						);
+					} else {
+						$("#align-items-flex-start").append(
+							'<div class="cont-post2"><div class="post-number">'+(i+1)+'</div><img src="' + data['rank'][i]['pic_url'] + '" class="post ranked"><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
+						);
+					}
                 }
             },
             error: function()
