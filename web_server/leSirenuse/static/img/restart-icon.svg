@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>arrows_anticlockwise_dashed</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="restart-configurate" transform="translate(-281.000000, -9.000000)" stroke="#4D7A89">
+            <g id="Group-2" transform="translate(176.000000, 10.000000)">
+                <g id="arrows_anticlockwise_dashed" transform="translate(106.000000, 0.000000)">
+                    <g>
+                        <g id="Group" transform="translate(8.500000, 0.000000)" stroke-dasharray="4.0593,2.0296">
+                            <path d="M1.10253226,0.0696190476 C5.27603226,0.60147619 8.5,4.11265079 8.5,8.36507937 C8.5,12.7106032 5.13317742,16.2822222 0.826419355,16.6910317" id="Shape"></path>
+                        </g>
+                        <path d="M8.5,0 C3.80553226,0 0,3.74512698 0,8.36507937 C0,10.1765238 0.585129032,11.8530476 1.57908065,13.2222222 L3.12004839,14.739" id="Shape"></path>
+                        <polyline id="Shape" stroke-linejoin="bevel" points="3.29032258 11.8730159 3.29032258 14.8412698 0.274193548 14.8412698"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
