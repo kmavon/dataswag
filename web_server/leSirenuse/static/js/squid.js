@@ -37,11 +37,11 @@ prepare_squid = function(target){
       .enter()
         .append("circle")
         .attr("i", function(d, i) { return i; })
-        .attr("id", function(d){ return d.name})
-        .attr("onclick", function(d) {return "target_change('" + d.name + "')"})
+        .attr("id", function(d){ return d.name; })
+        .attr("onclick", function(d) { return "target_change('" + d.name + "')"; })
         .attr("class", "satellite")
         .attr("r", function(d) { return d.size/20; })
-        .attr("fill", function(d, i) { return colors[i];});
+        .attr("fill", function(d, i) { return colors[i]; });
 
     //add center circle to svg
     d3.select("#squid")
@@ -134,7 +134,6 @@ function plot_squid(target){
       var theta = d3.select(this).attr("i")*splits;
       return d.distance * (w/2) * Math.cos(theta);
     });
-
 
     //links transitions
     links.transition()
