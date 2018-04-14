@@ -1,11 +1,11 @@
 /*General*/
 p, a {
-  font-family: 'Inconsolata';
+  font-family: 'Karla';
   color: #4e445f;
 }
 
 h5 {
-  font-family: 'Poppins';
+  font-family: 'Inconsolata';
   color: #4e445f;
   font-size: 1.55rem;
   vertical-align: middle;
@@ -21,6 +21,10 @@ a:hover {
   cursor: pointer;
 }
 
+body {
+  display: table;
+}
+
 /*First-Page-Upload*/
 
 .background {
@@ -33,22 +37,23 @@ a:hover {
 .upload-card{
   width: 99vw;
   height: 92vh;
-  background-color: #f9f9f9;
   margin: auto;
   /*box-shadow:14px 12px 34px -6px #4943a0;*/
   border:3px solid #4d7a89;
 
 }
 
-.margine {
-  padding-top: 2%;
+#choose {
+  font-family: "Karla";
+  font-size: 14px;
+  color: #e3e3e3;
 }
 
 #line
 {
 
-height: 82vh;
-border-right: 2px solid #4d7a89;
+height: 91.5vh;
+border-right: 1px solid #4d7a89;
 }
 
 .settings{
@@ -58,7 +63,7 @@ border-right: 2px solid #4d7a89;
 }
 
 .reccomender, .clustering{
-padding: 40px 0px 40px 0px;
+padding: 13vh 0vh;
 }
 
 .photo-box {
@@ -75,6 +80,10 @@ padding: 40px 0px 40px 0px;
   position: relative;
   top: 47%;
   bottom: 50%;
+}
+
+.upl-bar{
+  margin-top: 20%;
 }
 
 #upl-button {
@@ -101,7 +110,7 @@ padding: 40px 0px 40px 0px;
   color: #1a0663;
   border-radius: 60px 60px 0px 0px;
   box-shadow:0px -26px 50px -13px #4d7a89;
-  font-family: 'Poppins';
+  font-family: 'Karla';
   font-size: 24px;
 }
 
@@ -116,34 +125,39 @@ padding: 40px 0px 40px 0px;
   margin: 0 auto;
 }
 
+.pagetitle {
+  margin-left: 2vw;
+}
+
 #firstpage-title{
   vertical-align: center;
-  margin-left: 50px;
+  margin-left: 15px;
+  font-size: 22px;
   display: inline-flex;
-  line-height: 275%;
+  line-height: 191%;
 }
 
 .btn-secondary {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
   margin-left: 15px;
   color: #4e445f;
-  font-size: 24px;
-  font-family: 'Inconsolata';
-  width: 29vw;
-  height: 7vh;
+  font-size: 22px;
+  font-family: 'Karla';
+  width: 24vw;
+  height: 5vh;
+  border: 2px solid  #e2b3a3;
   line-height: 0px;
 }
 
 /*images-classes-for-photos*/
 
 .post {
-  height: 175px;
-  width: 175px;
+  height: 11vw;
+  width: 11vw;
   /*background-color: #4943a0;*/
-  margin: 30px 32px auto;
-  border: 3px solid #4d7a89;
+  border: 2px solid #4d7a89;
   text-align: center;
-  font-family: 'Poppins';
+  font-family: 'Karla';
   color: #4d7a89;
   line-height: 169.5px;
   font-size: 30px;
@@ -154,59 +168,7 @@ padding: 40px 0px 40px 0px;
   background-size: 200px;
 }
 
-/*.rank1 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
 
-.rank2 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank3 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank4 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank5 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank6 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank7 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank8 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank9 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-.rank10 {
-  background: url('../img/img-prova-ranking.jpg') no-repeat center;
-  background-size: 200px;
-}
-
-
-images-classes-for-photos-END
-
-.selected-post {
-  border: 8px solid #FFDD78;
-  border-radius: 5px;
-}*/
-
-#align-items-flex-start{
-  border-bottom: 0.1rem solid #4d7a89;
-}
 .score {
   text-align: center;
   font-family: 'Inconsolata';
@@ -216,12 +178,12 @@ images-classes-for-photos-END
 .hidden-overflow {
   overflow: hidden;
   width: 80vw;
+  margin-left: 2vw;
 }
 
 .align-items {
   display: flex;
-  margin: 0 18px;
-  height: 70vh;
+  height: 57vh;
   width: auto;
 }
 
@@ -229,6 +191,7 @@ images-classes-for-photos-END
   align-items: flex-start;
   flex-wrap: wrap;
   overflow: auto;
+  margin: 20px auto;
 }
 
 #target-label {
@@ -305,13 +268,139 @@ padding: 3px 5px -1px 10px;
   margin: 0  1.5vw;
 }
 
+/*Single Post Page*/
+
 #back{
 	position: fixed;
 	z-index: 1;
 }
 
 .cont-post{
-	width: 200px;
-	height: 200px;
+	width: 15vw;
+	height: 12vw;
 	overflow: hidden;
+}
+
+.post-single {
+  width: 22vw;
+  height: 22vw;
+}
+
+.page-title {
+  margin-top: 7vh;
+}
+
+.single-content{
+  margin: 7vh 5vh auto;
+}
+
+.caption-container {
+  border: 1px solid #578290;
+  height: 65%;
+  position: relative;
+
+}
+
+#caption-edit{
+
+  margin: 10px 0px 0px 15px;
+  color: #578290;
+  font-family: 'Inconsolata';
+  overflow-y: scroll;
+  height: 150px;
+  overflow: hidden;
+  outline: none;
+
+}
+
+.graph-container {
+  width: 22vw;
+  height: 100%;
+  border: 1px solid #578290;
+  margin-left: 0px;
+}
+
+#competitors-par {
+  width: 22vw;
+}
+
+.single-content-second{
+  margin: 2vh 5vh auto;
+}
+
+#margin-single-post {
+  margin-top: -10vh;
+}
+
+#margin-column-post {
+  margin: auto;
+}
+
+.copy-btn {
+  width: 95px;
+  height: 32px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top: 1px solid #578290;
+  border-left:1px solid #578290;
+  cursor: pointer;
+}
+
+#copy{
+  padding: 4px;
+  text-align: center;
+  color: #578290;
+  font-family: 'Karla';
+}
+
+.arrow-right{
+  margin-left: 2.1vw;
+  position: relative;
+  top: 42vh;
+  transform: rotate(180deg);
+}
+
+.loader-box {
+
+    background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+    width: 100px;
+    text-align: center;
+    color:  white;
+    height: 30px;
+    margin: 41vh auto;
+    padding: 3px;
+}
+
+
+/*--------------SOLO PER RESIZE ----------*/
+@media screen and (max-width: 1280px){
+  .box{
+    height: 471px;
+  }
+  .upl-bar{
+    margin-top: 20%;
+  }
+  .box__file + label{
+    font-size: 18px;
+    text-overflow: ellipsis;
+  }
+
+  .btn-secondary {
+    font-size: 20px;
+    width: 20vw;
+  }
+
+  .caption-container {
+    border: 1px solid #578290;
+    height: 60%;
+    position: relative;
+  }
+  #competitors-par{
+    width: 25vw;
+  }
+  .post-single {
+    width: 22vw;
+    height: 22vw;
+  }
 }

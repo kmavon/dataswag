@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/style.css">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:300i,400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     </head>
 
     <body>
@@ -21,40 +22,36 @@
             <div class="row">
                 <div class="upload-card col-12">
                     <div class="row margine">
-                        <div class="clustering-2 col-xs-12 col-5" id="line">
+                        <div class="clustering-2 col-xs-12 col-xl-1" id="line"><img src="../img/arrow-right.svg"
+     class="arrow-right">
 						</div>
-						<div class="col-xs-12 col-7">
-							<div class="row page-title">
-								<div class="pagetitle col-12">
-									<!-- <h5 id="firstpage-title">Post Ranking based on <span id="target-label">Current Target</span><span id="target-label2">+</span></h5> -->
-									<div class="row">
-										<h5 id="firstpage-title">Post Ranking based on </h5>
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											Cluster 1
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#" id="c1">Cluster 1</a>
-												<a class="dropdown-item" href="#" id="c2">Cluster 2</a>
-												<a class="dropdown-item" href="#" id="c3">Cluster 3</a>
-												<a class="dropdown-item" href="#" id="c4">Cluster 4</a>
-												<a class="dropdown-item" href="#" id="c5">Cluster 5</a>
-												<a class="dropdown-item" href="#" id="c6">Cluster 6</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="hidden-overflow">
-									<div class="col-12 align-items" id="align-items-flex-start">
-									<div class="cont-post"><img src="" class="post ranked"><div class="score">score 0.00</div></div>
-									<div class="cont-post"><div class="post rank2">2</div><div class="score">score 0.00</div></div>
-                  <div class="cont-post"><div class="post rank2">2</div><div class="score">score 0.00</div></div>
-                  <div class="cont-post"><div class="post rank2">2</div><div class="score">score 0.00</div></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+						<div class="col-xs-12 col-xl-11">
+          <div class="row single-content">
+               <div class="col-4"><div class="cont-post post-single"><img src="" class="post post-single ranked"></div></div>
+               <div class="col-8"><div class="caption-container"><div contenteditable="true" id="caption-edit">Write here your caption...</div><div class="copy-btn"><p id="copy">COPY</p></div></div></div>
+           </div>
+               <div class="row single-content-second">
+                 <div class="col-4">
+                   <div class="row" id="competitors-par">
+                     <div class="col-12"><p>COMPETITORS</p><p>Hover to reveal competitors affinity score with the post</p></div>
+                   </div>
+                   <div class="row graph-container">
+                     <div class="col-12"></div>
+                   </div>
+                 </div>
+                 <div class="col-8" id="margin-single-post">
+                   <div class="row">
+                     <div class="col-6"><p>CONCEPTS</p><p>Presence of relevant concepts in community’s captions.</p></div>
+                     <div class="col-6"><p>HASHTAGS</p><p>Double click on hashtag to insert in the caption</p></div>
+                   </div>
+
+                   <div class="row" id="margin-column-post">
+                     <div class="col-6 graph-container">yy</div>
+                     <div class="col-6 graph-container">yy</div>
+                   </div>
+                 </div>
+               </div>
+            </div>
 				</div>
 			</div>
 		</div>
