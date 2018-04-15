@@ -34,10 +34,10 @@ var svg = d3.select("#scatter").append("svg")
 	x.domain(data.map(function(d) { return d.name; }));
 	y.domain([0, d3.max(data, function(d) { return d.sim; })]);
 
-	//g.append("g")
-	//  .attr("class", "axis axis--x")
-	 // .attr("transform", "translate(0," + height + ")")
-	 // .call(d3.axisBottom(x));
+	g.append("g")
+	.attr("class", "axis axis--x")
+	.attr("transform", "translate(0," + height + ")")
+	 .call(d3.axisBottom(x));
 
 	//g.append("g")
 	  //.attr("class", "axis axis--y")
@@ -54,11 +54,12 @@ var svg = d3.select("#scatter").append("svg")
 	.data(data)
 	.enter().append("circle")
 	  .attr("class", "bar")
+		.attr("id", function(d,i){return "dot"+i})
 	  .attr("cx", function(d) { return x(d.name); })
 	  .attr("cy", function(d) { return y(d.sim); })
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
-	  .attr("r", "0.8em")
+	  .attr("r", "0.7em")
 		.attr("fill", function(d){return "rgba(255, 0, 0, "+d.sim/100+")";})
 		.attr("stroke", "#578290");
 		//.style("opacity", function(d) {return d.sim/100;});
@@ -68,6 +69,8 @@ var svg = d3.select("#scatter").append("svg")
 		  .data(data)
 			.enter().append("text")
 			.attr("class", "labels")
+			.attr("class", "opacity")
+			.attr("id", function(d,i){return "label"+i})
 			.attr("x", function(d) { return x(d.name)-10; })
 			.attr("y", function(d) { return y(d.sim)-25; })
 			.text(function(d) {
@@ -82,14 +85,78 @@ var svg = d3.select("#scatter").append("svg")
 
 
 //Here jQuery animation for scatterplot
-
 $(function() {
-  $('.labels').hover(function() {
-    $(this).removeClass('invisible');
+  $('#dot0').hover(function() {
+    $('#label0').removeClass('opacity');
   }, function() {
-    $(this).addClass('invisible');
+    $('#label0').addClass('opacity');
   });
 });
+
+$(function() {
+  $('#dot1').hover(function() {
+    $('#label1').removeClass('opacity');
+  }, function() {
+    $('#label1').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot2').hover(function() {
+    $('#label2').removeClass('opacity');
+  }, function() {
+    $('#label2').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot3').hover(function() {
+    $('#label3').removeClass('opacity');
+  }, function() {
+    $('#label3').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot4').hover(function() {
+    $('#label4').removeClass('opacity');
+  }, function() {
+    $('#label4').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot5').hover(function() {
+    $('#label5').removeClass('opacity');
+  }, function() {
+    $('#label5').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot6').hover(function() {
+    $('#label6').removeClass('opacity');
+  }, function() {
+    $('#label6').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot7').hover(function() {
+    $('#label7').removeClass('opacity');
+  }, function() {
+    $('#label7').addClass('opacity');
+  });
+});
+
+$(function() {
+  $('#dot8').hover(function() {
+    $('#label8').removeClass('opacity');
+  }, function() {
+    $('#label8').addClass('opacity');
+  });
+});
+
 
 
 d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset){
@@ -106,12 +173,13 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 
 	var svg = d3.select("#caption")
 		.append("svg");
-	svg.attr("viewBox", "65 0 "+width+" "+height);
-
+	svg.attr("viewBox", "100 100 "+width+" "+height);
+  svg.attr("id","bubblechart")
+	var stoca = svg.append("g").attr("class", "stocazzo");
 	var nodes = d3.hierarchy(dataset)
-		.sum(function(d) { return d.score; });
+		.sum(function(d) { return d.score*2; });
 
-	var node = svg.selectAll(".node")
+	var node = stoca.selectAll(".node")
 		.data(bubble(nodes).descendants())
 		.enter()
 		.filter(function(d){
@@ -120,7 +188,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 		.append("g")
 		.attr("class", "node")
 		.attr("transform", function(d) {
-			return "translate(" + d.x + "," + d.y + ")";
+			return "translate(" + d.x*2 + "," + d.y*2 + ")";
 		});
 
 	node.append("title")
@@ -130,19 +198,19 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 
 	node.append("circle")
 		.attr("r", function(d) {
-			return d.r;
+			return d.r*2;
 		})
-		.attr("fill", function(d,i){ return colors[i];});
+		.attr("fill", function(d){return "rgba(255, 0, 0, "+d.data.score/100+")";})
 
 	node.append("text")
-		.attr("dy", ".2em")
+		.attr("dy", ".1em")
 		.style("text-anchor", "middle")
 		.text(function(d) {
 			return d.data.topic;
 		})
-		.attr("font-family", "sans-serif")
+		.attr("font-family", "Karla")
 		.attr("font-size", function(d){
-			return d.r/4;
+			return d.r/2;
 		})
 		.attr("fill", "white");
 
@@ -152,7 +220,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 		.text(function(d) {
 			return d.data.score;
 		})
-		.attr("font-family",  "Gill Sans", "Gill Sans MT")
+		.attr("font-family",  "Karla")
 		.attr("font-size", function(d){
 			return d.r/3;
 		})
@@ -161,6 +229,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 });
 
 
+//tags
 d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(result){
 	data = result['tags'];
 	var tags = d3.select("#tags");
@@ -169,5 +238,6 @@ d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(result){
 	.enter().append("div")
 	  .attr("class", "tag")
 	  .text(function(d){return d.tag;})
+		.attr("fill", "white")
       .style("background-color", function(d){return "rgba(255, 0, 0, "+d.score/100+")";});
 });
