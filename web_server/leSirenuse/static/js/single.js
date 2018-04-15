@@ -68,6 +68,7 @@ var svg = d3.select("#scatter").append("svg")
 		g.selectAll("text")
 		  .data(data)
 			.enter().append("text")
+			.attr("class", "labels")
 			.attr("x", function(d) { return x(d.name)-10; })
 			.attr("y", function(d) { return y(d.sim)-25; })
 			.text(function(d) {
@@ -78,6 +79,17 @@ var svg = d3.select("#scatter").append("svg")
 			.attr("fill", "#578290");
 
 
+});
+
+
+//Here jQuery animation for scatterplot
+
+$(function() {
+  $('.labels').hover(function() {
+    $(this).removeClass('invisible');
+  }, function() {
+    $(this).addClass('invisible');
+  });
 });
 
 
