@@ -1,5 +1,4 @@
 d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(result){
-	console.log(result);
 	data = result['brands_sim'];
 	//var svg = d3.select("#scatter").append("svg");
 	//width = parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("width").slice(0,-2));
@@ -60,9 +59,9 @@ var svg = d3.select("#scatter").append("svg")
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
 	  .attr("r", "0.8em")
-		.attr("fill", "red")
-		.attr("stroke", "#578290")
-		.style("opacity", function(d) {return d.sim/100;});
+		.attr("fill", function(d){return "rgba(255, 0, 0, "+d.sim/100+")";})
+		.attr("stroke", "#578290");
+		//.style("opacity", function(d) {return d.sim/100;});
 
 
 		g.selectAll("text")
@@ -127,7 +126,6 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 		.attr("dy", ".2em")
 		.style("text-anchor", "middle")
 		.text(function(d) {
-			console.log(d);
 			return d.data.topic;
 		})
 		.attr("font-family", "sans-serif")
@@ -151,72 +149,13 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 });
 
 
-d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(dataset){
-	width = parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("width").slice(0,-2));
-	height =  parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("height").slice(0,-2));
-
-	var colors = []
-    for(i=0; i<dataset.children.length; i++){
-      colors.push("#"+((1<<24)*Math.random()|0).toString(16));
-    };
-	var bubble = d3.pack(dataset)
-		.size([height, width])
-		.padding(1.05);
-
-	var svg = d3.select("#caption")
-		.append("svg");
-	svg.attr("viewBox", "65 0 "+width+" "+height);
-
-	var nodes = d3.hierarchy(dataset)
-		.sum(function(d) { return d.score; });
-
-	var node = svg.selectAll(".node")
-		.data(bubble(nodes).descendants())
-		.enter()
-		.filter(function(d){
-			return  !d.children
-		})
-		.append("g")
-		.attr("class", "node")
-		.attr("transform", function(d) {
-			return "translate(" + d.x + "," + d.y + ")";
-		});
-
-	node.append("title")
-		.text(function(d) {
-			return d.name + ": " + d.score;
-		});
-
-	node.append("circle")
-		.attr("r", function(d) {
-			return d.r;
-		})
-		.attr("fill", function(d,i){ return colors[i];});
-
-	node.append("text")
-		.attr("dy", ".2em")
-		.style("text-anchor", "middle")
-		.text(function(d) {
-			console.log(d);
-			return d.data.topic;
-		})
-		.attr("font-family", "sans-serif")
-		.attr("font-size", function(d){
-			return d.r/4;
-		})
-		.attr("fill", "white");
-
-	node.append("text")
-		.attr("dy", "1.3em")
-		.style("text-anchor", "middle")
-		.text(function(d) {
-			console.log(d);
-			return d.data.score;
-		})
-		.attr("font-family",  "Gill Sans", "Gill Sans MT")
-		.attr("font-size", function(d){
-			return d.r/3;
-		})
-		.attr("fill", "white");
-
+d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(result){
+	data = result['tags'];
+	var tags = d3.select("#tags");
+	tags.selectAll(".tag")
+	.data(data)
+	.enter().append("div")
+	  .attr("class", "tag")
+	  .text(function(d){return d.tag;})
+      .style("background-color", function(d){return "rgba(255, 0, 0, "+d.score/100+")";});
 });
