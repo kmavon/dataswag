@@ -39,9 +39,12 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 	  .attr("cy", function(d) { return y(d.sim); })
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
-	  .attr("r", "12")
+	  .attr("r", "10")
 		.attr("fill", "red")
 		.append("text")
+		.attr("y", 6)
+		.attr("dy", "0.71em")
+		.attr("text-anchor", "end")
 		.text("Brand");
 
 });

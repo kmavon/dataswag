@@ -380,7 +380,7 @@ background-image: linear-gradient(-93deg, #3c9cbb, #4d7a89);
 
 .graph-container {
   width: 22vw;
-  height: 26vw;
+  height: 45vh;
   border-left: 1px solid #578290;
   margin-left: 0px;
 }
@@ -467,7 +467,7 @@ width: 200px}
   }
 
   .graph-container {
-    height: 26vw;
+    height: 45vh;
   }
 
   .restart-space {
