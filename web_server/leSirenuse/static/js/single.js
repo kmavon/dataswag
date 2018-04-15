@@ -1,10 +1,13 @@
 d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(result){
 	console.log(result);
 	data = result['brands_sim'];
-	var svg = d3.select("#scatter");
-	width = parseInt(window.getComputedStyle(document.getElementById("scatter-brands")).getPropertyValue("width").slice(0,-2));
-	height =  parseInt(window.getComputedStyle(document.getElementById("scatter-brands")).getPropertyValue("height").slice(0,-2));
-	svg.attr("viewBox", "-50 -50 "+width+" "+height);
+	var svg = d3.select("#scatter").append("svg");
+	width = parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("width").slice(0,-2));
+	height =  parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("height").slice(0,-2));
+	svg.attr("width", width);
+	svg.attr("height", height);
+	svg.attr("viewBox", "-5 -15 " +height+" "+width);
+	svg.attr("padding-right", "19px")
 	var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 		y = d3.scaleLinear().rangeRound([height, 0]);
 
@@ -13,20 +16,20 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 	x.domain(data.map(function(d) { return d.name; }));
 	y.domain([0, d3.max(data, function(d) { return d.sim; })]);
 
-	g.append("g")
-	  .attr("class", "axis axis--x")
-	  .attr("transform", "translate(0," + height + ")")
-	  .call(d3.axisBottom(x));
+	//g.append("g")
+	//  .attr("class", "axis axis--x")
+	 // .attr("transform", "translate(0," + height + ")")
+	 // .call(d3.axisBottom(x));
 
-	g.append("g")
-	  .attr("class", "axis axis--y")
-	  .call(d3.axisLeft(y).ticks(10, "%"))
-	.append("text")
-	  .attr("transform", "rotate(-90)")
-	  .attr("y", 6)
-	  .attr("dy", "0.71em")
-	  .attr("text-anchor", "end")
-	  .text("Brand");
+	//g.append("g")
+	  //.attr("class", "axis axis--y")
+	  //.call(d3.axisLeft(y).ticks(5, "%"))
+	//.append("text")
+	  //.attr("transform", "rotate(-90)")
+	  //.attr("y", 6)
+	  //.attr("dy", "0.71em")
+	  //.attr("text-anchor", "end")
+	  //.text("Brand");
 
 	g.selectAll(".bar")
 	.data(data)
@@ -36,7 +39,11 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 	  .attr("cy", function(d) { return y(d.sim); })
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
-	  .attr("r", "5");
+	  .attr("r", "12")
+		.attr("fill", "red")
+		.append("text")
+		.text("Brand");
+
 });
 
 
