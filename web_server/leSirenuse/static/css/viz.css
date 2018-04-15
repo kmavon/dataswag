@@ -4,4 +4,12 @@
 
 #caption {
 	height: 41.7vh;
+}*/
+
+.tag {
+    display: inline-block;
+    margin: 2px 2px 2px 2px;
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 2px 2px 2px 2px;
+    font-size: 18;  
 }
