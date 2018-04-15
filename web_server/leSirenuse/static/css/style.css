@@ -25,6 +25,18 @@ body {
   display: table;
 }
 
+/*Loader*/
+
+
+.loader-box {
+    margin: 0 auto;
+
+
+}
+
+.loader-margin{
+  margin: 41vh auto;
+}
 
 
 /*First-Page-Upload*/
@@ -129,6 +141,7 @@ padding: 13vh 0vh;
 
 .restart-space {
   height:14.5vh;
+  border-top: 1px solid #578290;
 }
 
 .restart-col{
@@ -192,9 +205,9 @@ padding: 13vh 0vh;
 
 .hidden-overflow {
   width: 44vw;
-  height: 61.5vh;
+  height: 61.4vh;
   margin: 0 auto;
-  border-top: 1px solid #4d7a89;
+  /*border-top: 1px solid #4d7a89;*/
   /*border-bottom: 1px solid #4d7a89;*/
 }
 
@@ -211,7 +224,7 @@ padding: 13vh 0vh;
 
 .align-items {
   display: flex;
-  height: 61vh;
+  height: 59.3vh;
   width: auto;
   position: relative;
 
@@ -269,6 +282,7 @@ padding: 13vh 0vh;
 .clustering-2
 {
 padding: 3px 5px -1px 10px;
+background-image: linear-gradient(-93deg, #3c9cbb, #4d7a89);
 }
 
   .grid-angles{fill:none;stroke:#A3C9D5;stroke-width:0.8694;stroke-miterlimit:10;}
@@ -378,7 +392,7 @@ padding: 3px 5px -1px 10px;
   margin: auto;
 }
 
-.restart-btn, .copy-btn {
+.configuration-btn, .restart-btn, .copy-btn {
   width: 95px;
   height: 32px;
   position: absolute;
@@ -389,10 +403,13 @@ padding: 3px 5px -1px 10px;
   cursor: pointer;
 }
 
-.restart-btn{
+.configuration-btn, .restart-btn{
 width: 200px}
 
-#restart, #copy{
+.configuration-btn {
+  right: 13.6vw;
+}
+#configuration, #restart, #copy{
   padding: 4px;
   text-align: center;
   color: #578290;
@@ -443,7 +460,9 @@ width: 200px}
   .restart-space {
     height: 13.8vh;
   }
-
+.hidden-overflow {
+  height:61.6vh;
+}
   .post-number {
     font-size: 0.8rem;
     margin-top: 0.05rem;

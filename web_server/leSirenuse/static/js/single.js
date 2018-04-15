@@ -1,4 +1,5 @@
 d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(result){
+	console.log(result);
 	data = result['brands_sim'];
 	var svg = d3.select("#scatter");
 	width = parseInt(window.getComputedStyle(document.getElementById("scatter-brands")).getPropertyValue("width").slice(0,-2));
@@ -8,7 +9,7 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 		y = d3.scaleLinear().rangeRound([height, 0]);
 
 	var g = svg.append("g");
-	
+
 	x.domain(data.map(function(d) { return d.name; }));
 	y.domain([0, d3.max(data, function(d) { return d.sim; })]);
 
@@ -42,7 +43,7 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset){
 	width = parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("width").slice(0,-2));
 	height =  parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("height").slice(0,-2));
-	
+
 	var colors = []
     for(i=0; i<dataset.children.length; i++){
       colors.push("#"+((1<<24)*Math.random()|0).toString(16));
@@ -80,7 +81,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 			return d.r;
 		})
 		.attr("fill", function(d,i){ return colors[i];});
-	
+
 	node.append("text")
 		.attr("dy", ".2em")
 		.style("text-anchor", "middle")
@@ -98,7 +99,6 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 		.attr("dy", "1.3em")
 		.style("text-anchor", "middle")
 		.text(function(d) {
-			console.log(d);
 			return d.data.score;
 		})
 		.attr("font-family",  "Gill Sans", "Gill Sans MT")
@@ -113,7 +113,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(dataset){
 	width = parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("width").slice(0,-2));
 	height =  parseInt(window.getComputedStyle(document.getElementById("caption")).getPropertyValue("height").slice(0,-2));
-	
+
 	var colors = []
     for(i=0; i<dataset.children.length; i++){
       colors.push("#"+((1<<24)*Math.random()|0).toString(16));
@@ -151,7 +151,7 @@ d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(dataset){
 			return d.r;
 		})
 		.attr("fill", function(d,i){ return colors[i];});
-	
+
 	node.append("text")
 		.attr("dy", ".2em")
 		.style("text-anchor", "middle")
