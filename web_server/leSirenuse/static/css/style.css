@@ -383,6 +383,7 @@ background-image: linear-gradient(-93deg, #3c9cbb, #4d7a89);
   height: 45vh;
   border-left: 1px solid #578290;
   margin-left: 0px;
+  /*padding: 2px 4px;*/
 }
 
 #competitors-par {
@@ -468,6 +469,7 @@ width: 200px}
 
   .graph-container {
     height: 45vh;
+    /*padding: 2px 4px;*/
   }
 
   .restart-space {
