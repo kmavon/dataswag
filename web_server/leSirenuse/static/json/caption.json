@@ -1,10 +1,10 @@
-{"topics":[
+{"children":[
   {"topic": "MFW", "score": 95},
-  {"topic": "Summer Recipes", "score": 95},
-  {"topic": "Holidays", "score": 87},
-  {"topic": "sports", "score": 75},
-  {"topic": "fabric", "score": 71},
-  {"topic": "blue", "score": 67},
-  {"topic": "cool", "score": 55},
+  {"topic": "Summer Recipes", "score": 85},
+  {"topic": "Holidays", "score": 61},
+  {"topic": "sports", "score": 53},
+  {"topic": "fabric", "score": 42},
+  {"topic": "blue", "score": 37},
+  {"topic": "cool", "score": 15}
   ]
 }
