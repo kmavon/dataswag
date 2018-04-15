@@ -1,13 +1,32 @@
 d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(result){
 	console.log(result);
 	data = result['brands_sim'];
-	var svg = d3.select("#scatter").append("svg");
-	width = parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("width").slice(0,-2));
-	height =  parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("height").slice(0,-2));
-	svg.attr("width", width);
-	svg.attr("height", height);
-	svg.attr("viewBox", "-5 -15 " +height+" "+width);
-	svg.attr("padding-right", "19px")
+	//var svg = d3.select("#scatter").append("svg");
+	//width = parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("width").slice(0,-2));
+	//height =  parseInt(window.getComputedStyle(document.getElementById("scatter")).getPropertyValue("height").slice(0,-2));
+	//svg.attr("width", width);
+	//svg.attr("height", height);
+
+//	svg.attr("padding-right", "19px")
+var margin = {
+	 top: 0,
+	 right: -15,
+	 bottom: 0,
+	 left: -15
+ },
+  width = document.querySelector('#scatter').offsetWidth - margin.left - margin.right,
+  height = document.querySelector('#scatter').offsetHeight - margin.top - margin.bottom;
+
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("#scatter").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+	.attr("viewBox", "0 -67 " +(parseInt(height)+40)+" "+(parseInt(width)+100))
+  //.attr("id", "scatter")
+
+  //.attr("class", "graphSvgComponent")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 		y = d3.scaleLinear().rangeRound([height, 0]);
 
@@ -31,6 +50,7 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 	  //.attr("text-anchor", "end")
 	  //.text("Brand");
 
+
 	g.selectAll(".bar")
 	.data(data)
 	.enter().append("circle")
@@ -39,13 +59,24 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function(resu
 	  .attr("cy", function(d) { return y(d.sim); })
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
-	  .attr("r", "10")
+	  .attr("r", "0.8em")
 		.attr("fill", "red")
-		.append("text")
-		.attr("y", 6)
-		.attr("dy", "0.71em")
-		.attr("text-anchor", "end")
-		.text("Brand");
+		.attr("stroke", "#578290")
+		.style("opacity", function(d) {return d.sim/100;});
+
+
+		g.selectAll("text")
+		  .data(data)
+			.enter().append("text")
+			.attr("x", function(d) { return x(d.name)-10; })
+			.attr("y", function(d) { return y(d.sim)-25; })
+			.text(function(d) {
+				return d.name;
+			})
+			.attr("font-family", "Karla")
+			.attr("font-size","0.8em")
+			.attr("fill", "#578290");
+
 
 });
 
