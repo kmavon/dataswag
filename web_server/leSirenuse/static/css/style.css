@@ -170,11 +170,17 @@ padding: 13vh 0vh;
   color: #4e445f;
   font-size: 22px;
   font-family: 'Karla';
-  width: 24vw;
+  width: 17vw;
   height: 5vh;
   border: 2px solid  #e2b3a3;
   line-height: 0px;
   border-radius: 0px;
+}
+
+.btn-secondary.active, .btn-secondary:active, .show>.btn-secondary.dropdown-toggle {
+  background-color:  #f5f5f5;
+  color: #6c757d;
+  outline: none;
 }
 
 /*images-classes-for-photos*/
@@ -269,15 +275,18 @@ padding: 13vh 0vh;
 .dropdown-item {
   font-family: 'Karla';
   text-align: center;
-  border-bottom: 1px solid #578290;
-  width: 23.9vw;
+  border-bottom: 1px solid #17a2b857;
+  width: 17vw;
+  padding: 1.25rem 1.5rem;
+  color: #6c757d;
 }
 
 .dropdown-menu {
   z-index: 10000;
-  max-width: 24vw;
+  max-width: 17vw;
   border-radius: 0px;
   background-color: #f5f5f5;
+  border: 1px solid #17a2b857;
 }
 /*TestVis CSS*/
 
@@ -443,7 +452,7 @@ width: 200px}
 
   .btn-secondary {
     font-size: 20px;
-    width: 20vw;
+    width: 17vw;
   }
 
   .caption-container {
