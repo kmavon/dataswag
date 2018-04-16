@@ -221,9 +221,16 @@ background-color: #fffcf3;
     border-radius: 10px;
     font-family: 'Inconsolata';
 }
-    .box__button:hover,
-    .box__button:focus
-    {
-        background-color: #224b59;
-        color: #fffcf3;
-    }
+.box__button:hover,
+.box__button:focus
+{
+	background-color: #224b59;
+	color: #fffcf3;
+}
+
+#first, 
+#second, 
+#third
+{
+	visibility: hidden;
+}

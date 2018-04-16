@@ -1,30 +1,29 @@
 rank_images = function(target) {
-    $.ajax({
-            url: 			  'http://localhost:8000/get_ranked_pics/',
-            method:			'POST',
-            dataType:   'json',
-            data:       { 'target': target },
-            success: function( data )
-            {
-				$("#align-items-flex-start").html("");
-                for (var i = 0; i < data['rank'].length; i++){
-					if ((i+1) % 3) {	
-						$("#align-items-flex-start").append(
-							'<div class="cont-post"><div class="post-number">'+(i+1)+'</div><img src="' + data['rank'][i]['pic_url'] + '" class="post ranked"><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
-							//'<div class="cont-post"><div class="post rank' + (i + 1) + '">' + (i + 1) +'</div><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
-						);
-					} else {
-						$("#align-items-flex-start").append(
-							'<div class="cont-post2"><div class="post-number">'+(i+1)+'</div><img src="' + data['rank'][i]['pic_url'] + '" class="post ranked"><div class="score">score ' + data['rank'][i]['score'] + '</div></div>'
-						);
-					}
-                }
-            },
-            error: function()
-            {
-                alert( 'Error. Please, contact the webmaster!' );
-            }
-        });
+	d3.json("http://localhost:8000/get_ranked_pics/", { method: 'POST', data: { 'target': target } }).then(function(result){
+		var data = result["rank"];
+		var container = d3.select("#align-items-flex-start");
+		container.text("");
+		var pics_cont = container.selectAll("div")
+			.data(data).enter()
+			.append("div")
+			.attr("class","cont-post");
+		
+		pics_cont.data(data)
+			.append("div")
+			.attr("class", "post-number")
+			.text(function(d,i){ return i+1; });
+		
+		pics_cont.data(data)
+			.append("a")
+			.attr("href", function(d){
+				return "http://localhost:8000/es_tool/single.html?pic=" + d.pic_url;
+			})
+			.append("div")
+			.attr("class", "post ranked")
+			.attr("style", function(d){
+				return "background: url(http://media.localhost:8000/media/" + d.pic_url + ") 50% 50% no-repeat; background-size:cover;"
+			});
+	})	
 };
 
 fill_dropdown = function(target) {

@@ -19,7 +19,35 @@ $(document).ready(function() {
             droppedFiles = false,
             showFiles	 = function( files )
             {
-                $label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
+				switch(true) {
+					case (files.length >= 2 && files.length <= 4):
+						$label.text(( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ));
+						$("#first").attr("style", "visibility: visible;");
+						$("#launch").attr("class", "box__button")
+						$("#launch").attr("class", "box__button ready")
+						break;
+					case (files.length > 4 && files.length <= 7):
+						$label.text(( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ));
+						$("#first").attr("style", "visibility: visible;");
+						$("#second").attr("style", "visibility: visible;");
+						$("#launch").attr("class", "box__button ready")
+						break;
+					case (files.length > 8 && files.length <= 10):
+						$label.text(( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ));
+						$("#first").attr("style", "visibility: visible;");
+						$("#second").attr("style", "visibility: visible;");
+						$("#third").attr("style", "visibility: visible;");
+						$("#launch").attr("class", "box__button ready")
+						break;
+					default:
+						$label.text( "Select between 2 and 10 pictures" );
+						$("#first").attr("style", "visibility: hidden;");
+						$("#second").attr("style", "visibility: hidden;");
+						$("#third").attr("style", "visibility: hidden;");
+						$("#launch").attr("class", "box__button")
+						break;
+				}
+          //      $label.text( files.length > 1 ? ( $input.attr( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name );
             };
 
         // letting the server side to know we are going to make an Ajax request
@@ -29,8 +57,7 @@ $(document).ready(function() {
         $input.on( 'change', function( e )
         {
             showFiles( e.target.files );
-
-
+            
         });
 
 
@@ -57,8 +84,6 @@ $(document).ready(function() {
             {
                 droppedFiles = e.originalEvent.dataTransfer.files; // the files that were dropped
                 showFiles( droppedFiles );
-
-
             });
         }
 
@@ -69,7 +94,7 @@ $(document).ready(function() {
         {
             // preventing the duplicate submissions if the current one is in progress
             if( $form.hasClass( 'is-uploading' ) ) return false;
-
+			if( !$(".box__button").hasClass("ready") ) return false;
             $form.addClass( 'is-uploading' ).removeClass( 'is-error' );
 
             if( isAdvancedUpload ) // ajax file upload for modern browsers
@@ -104,6 +129,8 @@ $(document).ready(function() {
                     {
                         $form.addClass( data.success == true ? 'is-success' : 'is-error' );
                         if( !data.success ) $errorMsg.text( data.error );
+						console.log('pressed');
+                		window.location = 'http://localhost:8000/es_tool/ranking.html?target=cluster0';
                     },
                     error: function()
                     {
@@ -136,12 +163,12 @@ $(document).ready(function() {
         {
             e.preventDefault();
             $form.removeClass( 'is-error is-success' );
-            //$input.trigger( 'click' );
+            $input.trigger( 'click' );
         });
 
         // Firefox focus bug fix for file input
         $input
         .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
         .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
-    });
+	});
 });

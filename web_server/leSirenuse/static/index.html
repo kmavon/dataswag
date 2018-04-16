@@ -1,81 +1,83 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title></title> <!-- The name of your project -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <!-- The name of your project -->
 
-        <!-- CSS stylesheets under here -->
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-        <!-- Your CSS -->
-        <link rel="stylesheet" href="css/style.css">
-        <!-- Uploader CSS -->
-        <link rel="stylesheet" href="css/main.css" />
-        <link rel="stylesheet" href="css/DandD.css" />
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:300i,400,700" rel="stylesheet">
-    </head>
+    <!-- CSS stylesheets under here -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Uploader CSS -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/DandD.css" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Karla:400,400i,700,700i" rel="stylesheet">
+</head>
 
-    <body>
-        <!-- all your content and visualizations here -->
-        <div class="container-fluid background">
-            <div class="row">
-                <div class="upload-card col-xl-12">
-                    <div class="row margine">
-                        <div class="clustering col-xs-12 col-xl-6" id="line">
-                            <div class="row">
-                              <div class="col-xl-4 settings">
+<body>
+    <!-- all your content and visualizations here -->
+    <div class="container-fluid background">
+        <div class="row">
+            <div class="upload-card col-xl-12">
+                <div class="row margine">
+                    <div class="clustering col-xs-12 col-xl-5" id="line">
+                        <div class="row">
+                            <div class="col-xl-4 settings">
                                 <a>Tool Settings</a><br>
                                 <a>Tool Instructions</a>
-                              </div>
                             </div>
                         </div>
-                        <div class="reccomender col-xs-12 col-xl-6">
-                            <div class="row">
-                                <div class="container" role="main">
-                                    <h1><a href="/article-url"></a></h1>
-                                    <form method="post" action="http://localhost:8000/img_upload/" class="box" enctype="multipart/form-data" >
-                                        <div class="box__input">
-                                            <svg class="box__icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"/></svg>
-                                            <input type="file" name="files[]" id="file" class="box__file" data-multiple-caption="{count} files selected" multiple="">
-                                            <label for="file">Choose a file<span class="box__dragndrop"> or drag it here</span>.</label>
-                                            <button type="submit" class="box__button">Upload</button>
-                                        </div>
-                                    <div class="box__uploading">Uploading&hellip;</div>
-                                    <div class="box__success">Done! <a href="DanD.html" class="box__restart" role="button">Upload more?</a></div>
-                                    <div class="box__error">Error! <span></span>. <a href="DanD.html" class="box__restart" role="button">Try again!</a></div>
-                                    </form>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="reccomender col-xs-12 col-xl-7">
                         <div class="row">
-                            <div class="col-xl-12 go-space">
-                                <div class="go-btn" id="go">GO</div>
+                            <div class="container" role="main">
+                                <h1><a href="/article-url"></a></h1>
+                                <form method="post" action="http://localhost:8000/img_upload/" class="box" enctype="multipart/form-data" >
+                                    <div class="box__input">
+                                        <input type="file" name="files[]" id="file" class="box__file" data-multiple-caption="{count} files selected" multiple="">
+                                        <label for="file">Drag your images here, you can input 10 pictures maximum.</label>
+                                        <p id="choose">Or Choose a file.</p>
+                                        <div class="upl-bar">
+                                            <svg width="218px" height="33px" viewBox="0 0 218 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="upload-bar">
+        <path d="M32.43,31.27 L36.08,31.27 L36.08,32 L31.64,32 L31.64,31.07 C31.64,30.3299963 31.9199972,29.7866684 32.48,29.44 C32.6600009,29.3266661 32.8599989,29.2266671 33.08,29.14 L34.32,28.64 C34.9600032,28.3866654 35.28,27.9700029 35.28,27.39 C35.28,27.0699984 35.1700011,26.8083344 34.95,26.605 C34.7299989,26.4016656 34.4216687,26.3 34.025,26.3 C33.6283314,26.3 33.3050013,26.3833325 33.055,26.55 C32.8049988,26.7166675 32.6600002,26.966665 32.62,27.3 L31.75,27.3 C31.7833335,26.7533306 32.0033313,26.3333348 32.41,26.04 C32.8166687,25.7466652 33.3383301,25.6 33.975,25.6 C34.6116698,25.6 35.129998,25.7733316 35.53,26.12 C35.930002,26.4666684 36.13,26.8949974 36.13,27.405 C36.13,27.9150026 35.9983347,28.3199985 35.735,28.62 C35.4716654,28.9200015 35.1100023,29.1599991 34.65,29.34 L33.38,29.85 C33.0599984,29.983334 32.8216674,30.1349991 32.665,30.305 C32.5083325,30.4750009 32.43,30.6966653 32.43,30.97 L32.43,31.27 Z M39.88,24.69 L40.68,24.69 L38.16,32.73 L37.37,32.73 L39.88,24.69 Z M45.4,25.62 L45.4,29.8 L46.49,29.8 L46.49,30.48 L45.4,30.48 L45.4,32 L44.63,32 L44.63,30.48 L41.38,30.48 L41.38,29.87 L44.67,25.62 L45.4,25.62 Z M42.32,29.87 L44.65,29.87 L44.65,26.87 L42.32,29.87 Z" id="2/4" fill="#E3E3E3"></path>
+        <path d="M97.27,29.96 C97.27,29.1666627 96.7533385,28.77 95.72,28.77 L94.03,28.77 L94.3,25.71 L97.79,25.71 L97.79,26.43 L95.06,26.43 L94.89,28.24 C95.2366684,28.1799997 95.5666651,28.15 95.88,28.15 C96.5666701,28.15 97.1066647,28.3016651 97.5,28.605 C97.8933353,28.9083349 98.09,29.3666636 98.09,29.98 C98.09,30.5933364 97.8833354,31.1016647 97.47,31.505 C97.0566646,31.9083354 96.5233366,32.11 95.87,32.11 C95.2166634,32.11 94.6833354,31.9450017 94.27,31.615 C93.8566646,31.2849984 93.65,30.8300029 93.65,30.25 L94.44,30.25 C94.44,30.7966694 94.7199972,31.1533325 95.28,31.32 C95.4533342,31.3666669 95.6433323,31.39 95.85,31.39 C96.2766688,31.39 96.6199987,31.2550014 96.88,30.985 C97.1400013,30.7149986 97.27,30.3733354 97.27,29.96 Z M101.73,24.69 L102.53,24.69 L100.01,32.73 L99.22,32.73 L101.73,24.69 Z M107.49,25.71 L107.49,26.44 L104.61,32 L103.55,32 L106.57,26.47 L103.21,26.47 L103.21,25.71 L107.49,25.71 Z" id="5/7" fill="#E3E3E3"></path>
+        <path d="M167.01,28.82 C166.176662,28.4399981 165.76,27.9233366 165.76,27.27 C165.76,26.7699975 165.966665,26.3666682 166.38,26.06 C166.793335,25.7533318 167.341663,25.6 168.025,25.6 C168.708337,25.6 169.269998,25.7633317 169.71,26.09 C170.150002,26.4166683 170.37,26.8366641 170.37,27.35 C170.37,27.6966684 170.255001,28.0066653 170.025,28.28 C169.794999,28.5533347 169.456669,28.723333 169.01,28.79 L169.18,28.85 C169.640002,29.0233342 169.993332,29.2283321 170.24,29.465 C170.486668,29.7016678 170.61,30.0233313 170.61,30.43 C170.61,30.9366692 170.385002,31.3433318 169.935,31.65 C169.484998,31.9566682 168.878337,32.11 168.115,32.11 C167.351663,32.11 166.733336,31.9400017 166.26,31.6 C165.786664,31.2599983 165.55,30.8333359 165.55,30.32 C165.55,29.9066646 165.684999,29.5700013 165.955,29.31 C166.225001,29.0499987 166.576664,28.886667 167.01,28.82 Z M167.76,29.11 C167.339998,29.1566669 167.003335,29.2883322 166.75,29.505 C166.496665,29.7216678 166.37,29.9899984 166.37,30.31 C166.37,30.6300016 166.529998,30.889999 166.85,31.09 C167.170002,31.290001 167.588331,31.39 168.105,31.39 C168.621669,31.39 169.031665,31.3033342 169.335,31.13 C169.638335,30.9566658 169.79,30.7466679 169.79,30.5 C169.79,30.2533321 169.710001,30.0550007 169.55,29.905 C169.389999,29.7549992 169.170001,29.6300005 168.89,29.53 L167.76,29.11 Z M166.59,27.37 C166.59,27.5500009 166.663333,27.7049994 166.81,27.835 C166.956667,27.9650007 167.166665,28.0833328 167.44,28.19 L168.17,28.47 C168.570002,28.4566666 168.899999,28.3516676 169.16,28.155 C169.420001,27.9583323 169.55,27.7016683 169.55,27.385 C169.55,27.0683317 169.413335,26.8116677 169.14,26.615 C168.866665,26.4183324 168.513336,26.32 168.08,26.32 C167.646664,26.32 167.290001,26.414999 167.01,26.605 C166.729999,26.795001 166.59,27.0499984 166.59,27.37 Z M174.23,24.69 L175.03,24.69 L172.51,32.73 L171.72,32.73 L174.23,24.69 Z M175.96,26.2 C176.406669,26.1399997 176.796665,25.9700014 177.13,25.69 L177.77,25.69 L177.77,32 L176.99,32 L176.99,26.63 C176.656665,26.8433344 176.313335,26.9599999 175.96,26.98 L175.96,26.2 Z M181.76,25.6 C182.520004,25.6 183.119998,25.8799972 183.56,26.44 C184.000002,27.0000028 184.22,27.8049947 184.22,28.855 C184.22,29.9050053 184.000002,30.7099972 183.56,31.27 C183.119998,31.8300028 182.520004,32.11 181.76,32.11 C180.999996,32.11 180.398336,31.8333361 179.955,31.28 C179.511664,30.7266639 179.29,29.9183387 179.29,28.855 C179.29,27.7916613 179.511664,26.9833361 179.955,26.43 C180.398336,25.8766639 180.999996,25.6 181.76,25.6 Z M183.4,28.86 C183.4,28.0399959 183.260001,27.4116688 182.98,26.975 C182.699999,26.5383311 182.291669,26.32 181.755,26.32 C181.218331,26.32 180.810001,26.5383311 180.53,26.975 C180.249999,27.4116688 180.11,28.0383293 180.11,28.855 C180.11,29.6716708 180.249999,30.2983311 180.53,30.735 C180.810001,31.1716688 181.218331,31.39 181.755,31.39 C182.291669,31.39 182.699999,31.1716688 182.98,30.735 C183.260001,30.2983311 183.4,29.6733374 183.4,28.86 Z" id="8/10" fill="#E3E3E3"></path>
+        <rect id="third" fill="#F54D4A" x="131" y="0" width="87" height="16" rx="8"></rect>
+        <rect id="second" fill="#F98C8A" x="62" y="0" width="87" height="16" rx="8"></rect>
+        <rect id="first" fill="#F5B1B0" x="0" y="0" width="75" height="16" rx="8"></rect>
+    </g>
+</g>
+</svg>
+                                            <button id="launch" type="submit" class="box__button">LAUNCH</button>
+                                        </div>
+                                        <div class="box__uploading">Uploading&hellip;</div>
+                                        <div class="box__success">Done!</div>
+                                        <div class="box__error">Error!</div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- JS files under here -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-        <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
-        <!-- Your JS -->
-        <!-- <script src="js/main.js"></script> -->
-        <!-- Uploader JS -->
-        <script type="text/javascript" src="js/DandD.js"></script>
-        <script>
-            $(document).ready ( function () {
-                $("#go").click(function() {
-                    console.log('pressed');
-                    window.location = 'http://localhost:8000/es_tool/ranking.html?target=cluster0';
-                });
-            });
-        </script>
-    </body>
+        </div>
+    </div>
+    <!-- JS files under here -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- Your JS -->
+    <!-- <script src="js/main.js"></script> -->
+    <!-- Uploader JS -->
+    <script type="text/javascript" src="js/DandD.js"></script>
+</body>
 
 </html>
