@@ -34,10 +34,7 @@ var svg = d3.select("#scatter").append("svg")
 	x.domain(data.map(function(d) { return d.name; }));
 	y.domain([0, d3.max(data, function(d) { return d.sim; })]);
 
-	g.append("g")
-	.attr("class", "axis axis--x")
-	.attr("transform", "translate(0," + height + ")")
-	 .call(d3.axisBottom(x));
+
 
 	//g.append("g")
 	  //.attr("class", "axis axis--y")
@@ -60,7 +57,7 @@ var svg = d3.select("#scatter").append("svg")
 	  .attr("width", x.bandwidth())
 	  //.attr("height", function(d) { return height - y(d.frequency); });
 	  .attr("r", "0.7em")
-		.attr("fill", function(d){return "rgba(255, 0, 0, "+d.sim/100+")";})
+		.attr("fill", function(d){return "rgba(238, 54, 15, "+d.sim/100+")";})
 		.attr("stroke", "#578290");
 		//.style("opacity", function(d) {return d.sim/100;});
 
@@ -80,6 +77,17 @@ var svg = d3.select("#scatter").append("svg")
 			.attr("font-size","0.8em")
 			.attr("fill", "#578290");
 
+
+			g.append("g")
+			.attr("class", "axis axis--x")
+			.attr("transform", "translate(0," + height + ")")
+			.call(d3.axisBottom(x));
+
+			g.append("text")
+			.attr("class", "scatter-title")
+			.attr("x",+(parseInt(width)/15))
+			.attr("y", +(parseInt(height)+30))
+			.text("BRANDS POSITIONED ACCORDING TO THEIR RELEVANCE")
 
 });
 
@@ -200,7 +208,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function(dataset
 		.attr("r", function(d) {
 			return d.r*2;
 		})
-		.attr("fill", function(d){return "rgba(255, 0, 0, "+d.data.score/100+")";})
+		.attr("fill", function(d){return "rgba(255, 191, 18, "+d.data.score/100+")";})
 
 	node.append("text")
 		.attr("dy", ".1em")
@@ -239,5 +247,5 @@ d3.json("http://localhost:8000/es_tool/json/tags.json").then(function(result){
 	  .attr("class", "tag")
 	  .text(function(d){return d.tag;})
 		.attr("fill", "white")
-      .style("background-color", function(d){return "rgba(255, 0, 0, "+d.score/100+")";});
+      .style("background-color", function(d){return "rgba(255, 140, 18, "+d.score/100+")";});
 });
