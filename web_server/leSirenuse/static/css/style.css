@@ -426,59 +426,78 @@ border-right: 1px solid #578290}
 /*--------------SOLO PER RESIZE ----------*/
 @media screen and (max-width: 1280px){
 .clustering {
- padding: 9vh 0vh;
+padding: 9vh 0vh;
 }
 
 .reccomender {
-  padding: 14vh 0vh;
+ padding: 14vh 0vh;
 }
 
-  .box{
-    height: 471px;
-  }
-  .upl-bar{
-    margin-top: 20%;
-  }
-  .box__file + label{
-    font-size: 18px;
-    text-overflow: ellipsis;
-  }
+ .box{
+   height: 471px;
+ }
+ .upl-bar{
+   margin-top: 20%;
+ }
+ .box__file + label{
+   font-size: 18px;
+   text-overflow: ellipsis;
+ }
 
-  .btn-secondary {
-    font-size: 20px;
-    width: 17vw;
-  }
+ .btn-secondary {
+   font-size: 20px;
+   width: 17vw;
+ }
 
-  .caption-container {
-    border: 1px solid #578290;
-    /*height: 60%;*/
-    position: relative;
-  }
-  #competitors-par{
-    /*width: 25vw;*/
-  }
-  .post-single {
-    width: 10vw;
-    height: 10vw;
-  }
+ .caption-container {
+   border: 1px solid #578290;
+   /*height: 60%;*/
+   position: relative;
+ }
+ #competitors-par{
+   /*width: 25vw;*/
+ }
+ .post-single {
+   width: 10vw;
+   height: 10vw;
+ }
 
-  .graph-container {
-    height: 43vh;
-    /*padding: 2px 4px;*/
-  }
+ .graph-container {
+   height: 31vh;
+   /*padding: 2px 4px;*/
+ }
 
-  .restart-space {
-    height: 13.8vh;
-  }
+ .restart-space {
+   height: 13.8vh;
+ }
 .hidden-overflow {
-  height:61.6vh;
+ height:61.6vh;
 }
-  .post-number {
-    font-size: 0.8rem;
-    margin-top: 0.05rem;
-  }
+ .post-number {
+   font-size: 0.8rem;
+   margin-top: 0.05rem;
+ }
 
-  .single-content-second {
-    margin-top:2.5vh;
-  }
+ .single-content-second {
+   margin-top:2.5vh;
+ }
+
+#scatterplot, #bubblechart {
+   display: none;
+ }
+
+.graph-container
+    {
+        height: 24vh;
+    }
+}
+
+@media screen and (max-width: 1920px) {
+ .restart-space {
+   height: 14.2vh;
+ }
+
+ #align-items-flex-start{
+   margin: 23px auto;
+ }
 }
