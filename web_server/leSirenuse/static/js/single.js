@@ -35,12 +35,13 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function (res
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
 		.attr("viewBox", "0 -67 " + (parseInt(height) + 40) + " " + (parseInt(width) + 100))
+		.attr("id", "scatterplot")
 		//.attr("id", "scatter")
 
 		//.attr("class", "graphSvgComponent")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-		y = d3.scaleLinear().rangeRound([height, 0]);
+			y = d3.scaleLinear().rangeRound([height, 0]);
 
 	var g = svg.append("g");
 
@@ -51,10 +52,7 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function (res
 		return d.sim;
 	})]);
 
-	g.append("g")
-		.attr("class", "axis axis--x")
-		.attr("transform", "translate(0," + height + ")")
-		.call(d3.axisBottom(x));
+
 
 	//g.append("g")
 	//.attr("class", "axis axis--y")
@@ -107,7 +105,49 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function (res
 		.attr("font-family", "Karla")
 		.attr("font-size", "0.8em")
 		.attr("fill", "#578290");
+
+		// add the tooltip area to the webpage
+		var tooltip = g.selectAll(".tooltip")
+			.data(data)
+			.enter()
+			.append("text")
+		  .attr("class", "tooltip")
+			.text(function(d) {return d.sim})
+		  .style("opacity", 0)
+			.attr("x", function (d) {
+				return x(d.name) + 25;
+			})
+			.attr("y", function (d) {
+				return y(d.sim);
+			})
+
+
+			// mouse over
+		  d3.select("#scatterplot").selectAll("circle")
+				.on("mouseover", function () {
+		      tooltip.transition()
+		        .duration(200)
+		        .style("opacity", .9)
+		        ;
+
+		    })
+		    .on("mouseout", function () {
+		      tooltip.transition()
+		        .duration(500)
+		        .style("opacity", 0);
+		    });
 });
+
+
+
+
+var line = d3.select("#scatter").append("line")
+                       .attr("x1", 5)
+                       .attr("y1", 5)
+                       .attr("x2", 50)
+                       .attr("y2", 50)
+											 .attr("fill", "black");
+
 
 
 d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (dataset) {
@@ -124,7 +164,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (datase
 
 	var svg = d3.select("#caption")
 		.append("svg");
-	svg.attr("viewBox", "100 100 " + width + " " + height);
+	svg.attr("viewBox", "30 50 " + (parseInt(height) + 400) + " " + (parseInt(width) + 400));
 	svg.attr("id", "bubblechart")
 	var stoca = svg.append("g").attr("class", "stocazzo");
 	var nodes = d3.hierarchy(dataset)
@@ -156,6 +196,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (datase
 		.attr("fill", function (d) {
 			return "rgba(255, 0, 0, " + d.data.score / 100 + ")";
 		})
+		.attr("stroke", "#578290")
 
 	node.append("text")
 		.attr("dy", ".1em")
@@ -167,7 +208,12 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (datase
 		.attr("font-size", function (d) {
 			return d.r / 2;
 		})
-		.attr("fill", "white");
+		.attr("fill", function (d) {
+			if(d.data.score / 100 > 0.2){
+				return "white";
+			}
+			return "#578290";
+		});
 
 	node.append("text")
 		.attr("dy", "1.3em")
@@ -177,9 +223,19 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (datase
 		})
 		.attr("font-family", "Karla")
 		.attr("font-size", function (d) {
-			return d.r / 3;
+			if("r" < 60.47739492029114){
+				return ".2rem";
+			}
+			return d.r / 2;
 		})
-		.attr("fill", "white");
+		.attr("fill", function (d) {
+			if(d.data.score / 100 > 0.2){
+				return "white";
+			}
+			return "#578290";
+		})
+		.attr("stroke", "black")
+		.attr("stroke", "0.25px");
 });
 
 
@@ -195,11 +251,12 @@ d3.json("http://localhost:8000/es_tool/json/tags.json").then(function (result) {
 			return d.tag;
 		})
 		.attr("fill", "white")
+		.attr("stroke", "#578290")
 		.attr("onclick", function(d) {
 			return "addtag('" + d.tag + "')";
 		})
 		.style("background-color", function (d) {
-			return "rgba(255, 0, 0, " + d.score / 100 + ")";
+			return "rgba(255, 140, 18, " + d.score / 100 + ")";
 		});
 });
 

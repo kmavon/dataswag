@@ -21,3 +21,8 @@ stroke:  #578290;
 .tick {
 	display: none;
 }
+
+
+.scatter-title {
+  fill:  #578290;
+}

@@ -7,8 +7,8 @@ background-color: #e5edf1;
 
 .container
 {
-width: 60%;
-max-width: 680px; /* 800 */
+width:29vw;
+max-width: 29vw;
 text-align: center;
 margin: 0 auto;
 }
@@ -67,7 +67,7 @@ margin-top: 40px;
 .box
 {
 font-size: 1.25rem; /* 20 */
-background-color: #95b6c2;
+background-color: #4d7a89;
 position: relative;
 padding: 100px 20px;
 
@@ -84,7 +84,7 @@ transition: outline-offset .15s ease-in-out, background-color .15s linear;
 {
 outline-offset: -20px;
 outline-color: #c8dadf;
-background-color: #fffcf3;
+background-color: #4fb6d8;
 }
 .box__dragndrop,
 .box__icon
@@ -108,7 +108,7 @@ background-color: #fffcf3;
 .box.is-success .box__input,
 .box.is-error .box__input
 {
-    visibility: hidden;
+    visibility: visible;
 }
 
 .box__uploading,
@@ -126,7 +126,7 @@ background-color: #fffcf3;
     top: 50%;
     right: 0;
     left: 0;
-    font-family: 'Poppins';
+    font-family: 'Karla';
     font-size: 15px;
 
     -webkit-transform: translateY( -50% );
@@ -177,12 +177,12 @@ background-color: #fffcf3;
 {
     max-width: 80%;
     text-overflow: ellipsis;
-    white-space: nowrap;
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
-    font-family: 'Poppins';
+    font-family: 'Karla';
     font-size: 15px;
+    color: white;
 }
 .box__file + label:hover strong,
 .box__file:focus + label strong,
@@ -212,25 +212,24 @@ background-color: #fffcf3;
 }
 .box__button
 {
-    font-weight: 700;
     background-color: #e5edf1;
     color: #4d7a89;
     display: block;
     padding: 8px 16px;
     margin: 40px auto 0;
-    border-radius: 10px;
-    font-family: 'Inconsolata';
+    font-family: 'Roboto';
+    font-size: 1rem;
 }
 .box__button:hover,
 .box__button:focus
 {
-	background-color: #224b59;
+	background-color: #e5edf1;
 	color: #fffcf3;
 }
 
-#first, 
-#second, 
+#first,
+#second,
 #third
 {
-	visibility: hidden;
+visibility: hidden;
 }
