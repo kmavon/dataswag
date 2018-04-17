@@ -2,7 +2,6 @@ var PageTransitions = (function() {
 
 	var $main = $( '#pt-main' ),
 		$pages = $main.children( 'div.pt-page' ),
-		$iterate = $( '#iterateEffects' ),
 		animcursor = 1,
 		pagesCount = $pages.length,
 		current = 0,
@@ -20,15 +19,13 @@ var PageTransitions = (function() {
 		// support css animations
 		support = Modernizr.cssanimations;
 	
-	function init() {
-
+    function init() {
 		$pages.each( function() {
 			var $page = $( this );
 			$page.data( 'originalClassList', $page.attr( 'class' ) );
 		} );
 
 		$pages.eq( current ).addClass( 'pt-page-current' );
-
 	}
 
 	function nextPage(animation) {
@@ -39,7 +36,7 @@ var PageTransitions = (function() {
 		isAnimating = true;
 		
 		var $currPage = $pages.eq( current );
-		var $nextPage = $pages.eq( current ).addClass( 'pt-page-current' ),
+		var $nextPage = $pages.eq( current + 1 ).addClass( 'pt-page-current' ),
 			outClass = '', inClass = '';
 
 		switch( animation ) {

@@ -16,11 +16,12 @@ prepare_squid = function(target){
     var center_color = "#"+((1<<24)*Math.random()|0).toString(16);
     var splits = (2*Math.PI)/nodes.length;
     var squid = d3.select("#squid");
+    var all = squid.append("g").attr("class", "all");
     //empty the svg
     //squid.selectAll("*").remove();
 
     //add links to svg (only if empty)
-    var links = squid.selectAll("line")
+    var links = all.selectAll("line")
     .data(nodes)
     .enter()
       .append("line")
@@ -32,7 +33,8 @@ prepare_squid = function(target){
       .style("stroke", "yellow");
 
     //add satellites circles to svg (only if empty)
-    var circles = squid.selectAll("circle")
+    var circles = all
+      .selectAll("circle")
       .data(nodes)
       .enter()
         .append("circle")
@@ -44,7 +46,7 @@ prepare_squid = function(target){
         .attr("fill", function(d, i) { return colors[i]; });
 
     //add center circle to svg
-    d3.select("#squid")
+    d3.select(".all")
       .append("circle")
       .attr("class", "center")
       .attr("id", result.squid.center.name)
@@ -78,6 +80,38 @@ prepare_squid = function(target){
       var theta = i*splits;
       return d.distance * (w/2) * Math.cos(theta);
     });
+      
+    //SVG filter for the gooey effect
+    //Based on http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/
+    var filter = squid.append("defs")
+        .append("filter")
+        //use a unique id to reference again later on
+        .attr("id","gooeyCodeFilter");
+
+    //Append multiple "pieces" to the filter
+    filter.append("feGaussianBlur")
+        .attr("in","SourceGraphic")
+        .attr("stdDeviation","25")
+        .attr("color-interpolation-filters","sRGB")
+        .attr("result","blur");
+    filter.append("feColorMatrix")
+        //the class used later to transition the gooey effect
+        .attr("class","blurValues")
+        .attr("in","blur")
+        .attr("mode","matrix")
+        .attr("values","1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -9")
+        .attr("result","gooey");
+
+    //If you want the end shapes to be exactly the same size as without
+    //the filter add the feBlend below. However this will result in a
+    //less beautiful gooey effect
+    filter.append("feBlend")
+        .attr("in","SourceGraphic")
+        .attr("in2","gooey");
+
+    //Apply the filter to the group element of all the circles
+    var circleWrapper = d3.select(".all")
+        .style("filter", "url(#gooeyCodeFilter)");
   });
 };
 

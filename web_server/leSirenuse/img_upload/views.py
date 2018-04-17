@@ -12,7 +12,7 @@ def img_upload(request):
     print('removing previous files')
     for root, dirs, files in os.walk(settings.MEDIA_ROOT):
         for filename in files:
-            os.remove(settings.MEDIA_ROOT + '\\' + filename)
+            os.remove(settings.MEDIA_ROOT + '/' + filename)
 
     print('saving new files')
     fs = FileSystemStorage()
@@ -32,7 +32,8 @@ def get_ranked_pics(request):
     for root, dirs, files in os.walk(settings.MEDIA_ROOT):
         for filename in files:
             rank_list.append({
-                'pic_url': 'http://media.localhost:8000' + settings.MEDIA_URL + filename,
+                #'pic_url': 'http://media.localhost:8000' + settings.MEDIA_URL + filename,
+                'pic_url': filename,
                 'score': 94
                 })
             print(filename + ': ' + str(rank_list[-1]['score']))

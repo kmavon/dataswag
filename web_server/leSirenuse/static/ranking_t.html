@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title> <!-- The name of your project -->
+    <title></title>
+    <!-- The name of your project -->
 
     <!-- CSS stylesheets under here -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/transition/default.css" />
-	<link rel="stylesheet" type="text/css" href="css/transition/multilevelmenu.css" />
-	<link rel="stylesheet" type="text/css" href="css/transition/component.css" />
-	<link rel="stylesheet" type="text/css" href="css/transition/animations.css" />
+    <link rel="stylesheet" type="text/css" href="css/transition/default.css" />
+    <link rel="stylesheet" type="text/css" href="css/transition/multilevelmenu.css" />
+    <link rel="stylesheet" type="text/css" href="css/transition/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/transition/animations.css" />
     <!-- Your CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/viz.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:300i,400,700" rel="stylesheet">
-  </head>
-  <body>
-    <svg id="back" version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-    viewBox="-445 497 1653 88" style="enable-background:new -445 497 132 88;" xml:space="preserve">
+</head>
+
+<body>
+    <svg id="back" version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-445 497 1653 88" style="enable-background:new -445 497 132 88;" xml:space="preserve">
       <style type="text/css">
       .triangle-background{fill:#4D7A89;}
       .font-restart{font-family:'Inconsolata';font-size:14px;fill:#344044;}
@@ -32,82 +35,119 @@
       </g>
     </svg>
     <!-- all your content and visualizations here -->
-	<div id="pt-main" class="pt-perspective">
-		<div class="pt-page pt-page-1 pt-page-current">
-			<div class="container-fluid background">
-			  <div class="row">
-				<div class="upload-card col-12">
-				  <div class="row margine">
-					<div class="clustering-2 col-xs-12 col-5" id="line">
-					  <svg version="1.1" id="squid" width="100%" height="100%">
-					  </svg>
-					</div>
-					<div class="reccomender col-xs-12 col-7">
-					  <div class="row page-title">
-						<div class="col-12">
-						<!-- <h5 id="firstpage-title">Post Ranking based on <span id="target-label">Current Target</span><span id="target-label2">+</span></h5> -->
-						  <div class="row">
-							<h5 id="firstpage-title">Post Ranking based on </h5>
-							<div class="dropdown">
-							  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							  Cluster 1
-							  </button>
-							  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							  </div>
-							</div>
-						  </div>
-						  <div class="hidden-overflow">
-							<div class="col-12 align-items" id="align-items-flex-start">
-							</div>
-						  </div>
-						</div>
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		</div>
-		<div class="pt-page pt-page-2">
-			<div class="container-fluid background">
-            <div class="row">
-                <div class="upload-card col-12">
-                    <div class="row margine">
-                        <div class="clustering-2 col-xs-12 col-xl-1" id="line"><img src="../img/arrow-right.svg" class="arrow-right">
-						</div>
-						<div class="col-xs-12 col-xl-11">
-						  <div class="row single-content">
-							   <div class="col-4"><div class="cont-post post-single"><img src="" class="post post-single ranked"></div></div>
-							   <div class="col-8"><div class="caption-container"><div contenteditable="true" id="caption-edit">Write here your caption...</div><div class="copy-btn"><p id="copy">COPY</p></div></div></div>
-						   </div>
-						   <div class="row single-content-second">
-							 <div class="col-4">
-							   <div class="row" id="competitors-par">
-								 <div class="col-12"><p>COMPETITORS</p><p>Hover to reveal competitors affinity score with the post</p></div>
-							   </div>
-							   <div class="row graph-container">
-								 <div class="col-12"></div>
-							   </div>
-							 </div>
-							 <div class="col-8" id="margin-single-post">
-							   <div class="row">
-								 <div class="col-6"><p>CONCEPTS</p><p>Presence of relevant concepts in community’s captions.</p></div>
-								 <div class="col-6"><p>HASHTAGS</p><p>Double click on hashtag to insert in the caption</p></div>
-							   </div>
+    <div id="pt-main" class="pt-perspective">
+        <div class="pt-page pt-page-1 pt-page-current">
+            <div class="container-fluid background">
+                <div class="row">
+                    <div class="upload-card col-12">
+                        <div class="row margine">
+                            <div class="clustering-2 col-xs-12 col-5" id="line">
+                                <svg version="1.1" id="squid" width="100%" height="100%">
+					  		</svg>
+                            </div>
+                            <div class="col-xs-12 col-7">
+                                <div class="row page-title">
+                                    <div class="pagetitle col-12">
+                                        <!-- <h5 id="firstpage-title">Post Ranking based on <span id="target-label">Current Target</span><span id="target-label2">+</span></h5> -->
+                                        <div class="row">
+                                            <h5 id="firstpage-title">Post Ranking based on </h5>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Summer Addicted
+											</button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#" id="c1">Sport Enthusiasts</a>
+                                                    <a class="dropdown-item" href="#" id="c2">Ethic Storytellers</a>
+                                                    <a class="dropdown-item" href="#" id="c3">Fashion Curators</a>
+                                                    <a class="dropdown-item" href="#" id="c4">Interior Designers</a>
+                                                    <a class="dropdown-item" href="#" id="c5">Travel Experts</a>
+                                                    <a class="dropdown-item" href="#" id="c6">Night Lovers</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hidden-overflow">
+                                        <div class="col-12 align-items" id="align-items-flex-start">
+                                            <!-- <div class="cont-post"><div class="post-number">1</div><img src="" class="post ranked"><div class="score">score 0.00</div></div>
+									<div class="cont-post"><div class="post-number">2</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post2"><div class="post-number">3</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post"><div class="post-number">4</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post"><div class="post-number">5</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post2"><div class="post-number">6</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post"><div class="post-number">7</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post"><div class="post-number">8</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post"><div class="post-number">9</div><div class="post rank2"></div><div class="score">score 0.00</div></div>
+									  <div class="cont-post2"><div class="post-number">10</div><div class="post rank2"></div><div class="score">score 0.00</div></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row restart-space">
+                                    <div class="col-6">squid legend</div>
+                                    <div class="col-6 restart-col">
+                                        <div class="restart-btn">
+                                            <p id="restart"><img src="img/restart-icon.svg"> RESTART TOOL</p>
+                                        </div>
 
-							   <div class="row" id="margin-column-post">
-								 <div class="col-6 graph-container">yy</div>
-								 <div class="col-6 graph-container">yy</div>
-							   </div>
-							 </div>
-						   </div>
-            			</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-	</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-page pt-page-2">
+            <div class="container-fluid background">
+                <div class="row">
+                    <div class="upload-card col-12">
+                        <div class="row margine">
+                            <div class="clustering-2 col-xs-12 col-xl-1" id="line"><img src="img/arrow-right.svg" class="arrow-right">
+                            </div>
+                            <div class="col-xs-12 col-xl-11">
+                                <div class="row single-content">
+                                    <div class="col-3">
+                                        <div class="cont-post post-single"><img src="" class="post post-single ranked"></div>
+                                    </div>
+                                    <div class="col-9 box-caption-size">
+                                        <div class="caption-container">
+                                            <div contenteditable="true" id="caption-edit">Write here your caption...</div>
+                                            <div class="copy-btn">
+                                                <p id="copy">COPY</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row single-content-second">
+                                    <div class="col-12">
+                                        <div class="row" id="competitors-par">
+                                            <div class="col-4">
+                                                <p>COMPETITORS</p>
+                                                <p>Hover to reveal competitors affinity score with the post</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p>CONCEPTS</p>
+                                                <p>Presence of relevant concepts in community’s captions.</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p>HASHTAGS</p>
+                                                <p>Double click on hashtag to insert in the caption</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id=margin-column-post>
+
+                                    <div class="col-4 graph-container" id="scatter"></div>
+                                    <div class="col-4 graph-container" id="caption"></div>
+                                    <div class="col-4 graph-container" id="tags"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- JS files under here -->
     <script src="js/d3/d3.min.js"></script>
     <!-- jQuery first, then Popper.js, then svg.js then Bootstrap JS -->
@@ -120,7 +160,9 @@
     <!-- Your JS -->
     <script src="js/squid.js"></script>
     <script src="js/main.js"></script>
-	<script src="js/transition/modernizr.custom.js"></script>
-	<script src="js/transition/pagetransitions.js"></script>
-  </body>
+    <script src="js/single.js"></script>
+    <script src="js/transition/modernizr.custom.js"></script>
+    <script src="js/transition/pagetransitions.js"></script>
+</body>
+
 </html>
