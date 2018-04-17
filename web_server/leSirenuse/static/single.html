@@ -44,16 +44,16 @@
 							<div class="col-12">
 								<div class="row" id="competitors-par">
 									<div class="col-4">
-										<p>COMPETITORS</p>
-										<p>Hover to reveal competitors affinity score with the post</p>
+										<p class="visualization-label">COMPETITORS</p>
+										<p>Post similarity to competitors content, hover to reveal score.</p>
 									</div>
 									<div class="col-4">
-										<p>CONCEPTS</p>
+										<p class="visualization-label">CONCEPTS</p>
 										<p>Presence of relevant concepts in community’s captions.</p>
 									</div>
-									<div class="col-4">
-										<p>HASHTAGS</p>
-										<p>Double click on hashtag to insert in the caption</p>
+									<div class="col-4 ">
+										<p class="visualization-label">HASHTAGS</p>
+										<p>Relevant hashtags inside users community, click on a single box to insert the hashtag inside the caption.</p>
 									</div>
 								</div>
 							</div>
@@ -62,7 +62,7 @@
 
 							<div class="col-4 graph-container" id="scatter"></div>
 							<div class="col-4 graph-container" id="caption"></div>
-							<div class="col-4 graph-container" id="tags"></div>
+							<div class="col-4 graph-container  last-container" id="tags"></div>
 						</div>
 					</div>
 				</div>
@@ -79,6 +79,7 @@
 	<!-- jQuery first, then Popper.js, then svg.js then Bootstrap JS -->
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
+	<script src="https://unpkg.com/tooltip.js@1.2.0/dist/umd/tooltip.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.4/svg.js"></script>
 	<script src="js/svg.draggable.js"></script>
 	<script src="js/svg.import.js"></script>
