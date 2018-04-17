@@ -72,9 +72,9 @@ d3.json("http://localhost:8000/es_tool/json/brands_sim.json").then(function (res
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return x(d.name) - 1; })
-        .attr("y", function(d) { return y(d.sim); })
+        .attr("y", function(d) { return y(d.sim) +12; })
         .attr("width", "2")
-        .attr("height", function(d) { return height - y(d.sim); });
+        .attr("height", function(d) { return height - y(d.sim) - 10 ; });
 
 	g.selectAll(".brand")
 		.data(data)
