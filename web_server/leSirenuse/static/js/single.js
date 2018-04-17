@@ -250,6 +250,7 @@ d3.json("http://localhost:8000/es_tool/json/tags.json").then(function (result) {
 		.text(function (d) {
 			return d.tag;
 		})
+
 		.attr("fill", "white")
 		.attr("stroke", "#578290")
 		.attr("onclick", function(d) {
