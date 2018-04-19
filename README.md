@@ -5,3 +5,5 @@
 2. Move to folder web_server/leSirenuse/
 3. Run "python manage.py runserver". This will launch the web server at "http://localhost:8000"
 4. Go to "http://localhost:8000/es_tool/index.html"
+
+Kimia Mavon, Francesca Morini, Karan Motwani, Moreno Vendra
