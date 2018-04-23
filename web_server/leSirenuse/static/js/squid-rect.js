@@ -19,12 +19,17 @@ prepare_squid = function(target){
     var all = squid.append("g").attr("class", "all");
     
     //add links to svg (only if empty)
-    var links = all.selectAll("path")
+    var links = all.selectAll("rect")
     .data(nodes)
     .enter()
-      .append("path")
+      .append("rect")
       .attr("i", function(d, i) { return i; })
       .attr("class", "links")
+      .attr("width", 10)
+      .attr("height", 0)
+      .attr("x", -5)
+      .attr("y", 0)
+      .style("stroke", "yellow");
 
     //add satellites circles to svg (only if empty)
     var circles = all.selectAll("circle")
@@ -60,9 +65,55 @@ prepare_squid = function(target){
       var theta = i*splits;
       return d.distance * (w/2) * Math.cos(theta);
     });
-
-    //links transitions
     
+    //links transitions
+    links.data(nodes)
+    .transition()
+    .duration(2000)
+    .attr("transform", function() {
+        var i = d3.select(this).attr("i");
+        return "rotate(" + ((i*splits*57.295779513)-90) + " 0 0)";
+    })
+    .attr("height", function() {
+      console.log(i)
+      console.log(circles.filter("[i='" + i + "']"))
+      var i = d3.select(this).attr("i");
+      var d = circles.filter("[i='" + i + "']").data()[0].distance;
+      console.log(d)
+      return d * (w/2);
+    });
+      
+    //SVG filter for the gooey effect
+    //Based on http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/
+    var filter = squid.append("defs")
+        .append("filter")
+        //use a unique id to reference again later on
+        .attr("id","gooeyCodeFilter");
+
+    //Append multiple "pieces" to the filter
+    filter.append("feGaussianBlur")
+        .attr("in","SourceGraphic")
+        .attr("stdDeviation","25")
+        .attr("color-interpolation-filters","sRGB")
+        .attr("result","blur");
+    filter.append("feColorMatrix")
+        //the class used later to transition the gooey effect
+        .attr("class","blurValues")
+        .attr("in","blur")
+        .attr("mode","matrix")
+        .attr("values","1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -7")
+        .attr("result","gooey");
+
+    //If you want the end shapes to be exactly the same size as without
+    //the filter add the feBlend below. However this will result in a
+    //less beautiful gooey effect
+    filter.append("feBlend")
+        .attr("in","SourceGraphic")
+        .attr("in2","gooey");
+
+    //Apply the filter to the group element of all the circles
+    var circleWrapper = d3.selectAll(".all")
+        .style("filter", "url(#gooeyCodeFilter)");
   });
 };
 
@@ -108,12 +159,9 @@ function plot_squid(target){
     var links = d3.selectAll(".links");
 
     //statellites transitions
-    for(i=0, i<circle.length, i++){
-        theta = 
-        attachListeners()
-    }
     circles.data(nodes, function(d){ return d ? d.name : this.id; })
-    .each()
+    .transition()
+    .duration(2000)
     .attr("cy", function(d) {
       var theta = d3.select(this).attr("i")*splits;
       return d.distance * (w/2) * Math.sin(theta);
@@ -124,9 +172,17 @@ function plot_squid(target){
     });
 
     //links transitions
-    for(i=0; i<links.length; i++){
-        
-    }
-        
+    links.transition()
+    .duration(2000)
+    .attr("transform", function() {
+        console.log(links)
+        var i = d3.select(this).attr("i");
+        return "rotate(" + ((i*splits*57.295779513)-90) + " 0 0)";
+    })
+    .attr("height", function() {
+      var i = d3.select(this).attr("i");
+      var d = circles.filter("[i='" + i + "']").data()[0].distance;
+      return d * (w/2);
+    });
   });
 }

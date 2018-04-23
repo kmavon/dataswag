@@ -1,6 +1,6 @@
 { "squid": {
     "center": {
-      "name": "cluster1", "size": 750
+      "name": "Night People", "size": 750
     },
     "satellites": [
        { "name": "cluster0", "size": 1000, "distance": 0.3 },

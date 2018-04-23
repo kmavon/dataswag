@@ -349,8 +349,8 @@ padding: 20vh 0vh;
 
 .graph-container {
   width: 22vw;
-  height: 45vh;
-  border-left: 1px solid #578290;
+  height: calc(45vh - 4vh);
+  border-left: 1px dashed #578290;
   margin-left: 0px;
   /*padding: 2px 4px;*/
 }
@@ -360,7 +360,7 @@ padding: 20vh 0vh;
 }
 
 .single-content-second{
-  margin: 4vh 5vh auto;
+  margin: 4vh 5vh;
 }
 
 /*#margin-single-post {
@@ -410,7 +410,7 @@ color: white;
 }
 
 .last-container{
-border-right: 1px solid #578290}
+border-right: 1px dashed #578290}
 
 
 .tooltip {
@@ -425,79 +425,75 @@ border-right: 1px solid #578290}
 }
 /*--------------SOLO PER RESIZE ----------*/
 
-@media screen and (max-width: 1280px){
+@media screen and (max-height: 784px){
 .clustering {
- padding: 9vh 0vh;
+padding: 9vh 0vh;
 }
 
 .reccomender {
-  padding: 14vh 0vh;
+ padding: 14vh 0vh;
 }
 
-  .box{
-    height: 471px;
-  }
-  .upl-bar{
-    margin-top: 20%;
-  }
-  .box__file + label{
-    font-size: 18px;
-    text-overflow: ellipsis;
-  }
+ .box{
+   height: 471px;
+ }
+ .upl-bar{
+   margin-top: 20%;
+ }
+ .box__file + label{
+   font-size: 18px;
+   text-overflow: ellipsis;
+ }
 
-  .btn-secondary {
-    font-size: 20px;
-    width: 17vw;
-  }
+ .btn-secondary {
+   font-size: 20px;
+   width: 17vw;
+ }
 
-  .caption-container {
-    border: 1px solid #578290;
-    /*height: 60%;*/
-    position: relative;
-  }
-  #competitors-par{
-    /*width: 25vw;*/
-  }
-  .post-single {
-    width: 10vw;
-    height: 10vw;
-  }
+ .caption-container {
+   border: 1px solid #578290;
+   /*height: 60%;*/
+   position: relative;
+ }
+ #competitors-par{
+   /*width: 25vw;*/
+ }
+ .post-single {
+   width: 10vw;
+   height: 10vw;
+ }
 
-  .graph-container {
-    height: 31vh;
-    /*padding: 2px 4px;*/
-  }
+ .graph-container {
+   height: 35vh;
+   /*padding: 2px 4px;*/
+ }
 
-  .restart-space {
-    height: 13.8vh;
-  }
+ .restart-space {
+   height: 13.8vh;
+ }
 .hidden-overflow {
-  height:61.6vh;
+ height:61.6vh;
 }
-  .post-number {
-    font-size: 0.8rem;
-    margin-top: 0.05rem;
-  }
+ .post-number {
+   font-size: 0.8rem;
+   margin-top: 0.05rem;
+ }
 
-  .single-content-second {
-    margin-top:2.5vh;
-  }
+ .single-content-second {
+   margin-top:2.5vh;
+ }
 
- #scatterplot, #bubblechart {
-    display: none;
-  }
 
-  .tag {
-    display: none;
-  }
+
+
 }
 
-@media screen and (max-width: 1920px) {
-  .restart-space {
-    height: 15vh;
-  }
+@media screen and (min-width: 1920px) {
+ .restart-space {
+   height: 14.2vh;
+ }
 
-  #aligne-items-flex-start{
-    margin: 23px auto;
-  }
+ #align-items-flex-start{
+   margin: 23px auto;
+ }
 }

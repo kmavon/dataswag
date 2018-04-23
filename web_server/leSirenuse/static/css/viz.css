@@ -11,12 +11,10 @@
     background-color: rgba(255, 0, 0, 0.5);
     padding: 5px;
     font-size: 18;
+    cursor: pointer;
 }
 
 
-.domain {
-stroke:  #578290;
-}
 
 .tick {
 	display: none;
