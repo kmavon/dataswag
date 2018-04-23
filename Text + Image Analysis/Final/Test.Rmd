@@ -1,0 +1,211 @@
+---
+title: "Clustering"
+author: "Karan R Motwani"
+date: "3/9/2018"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(lubridate)
+library(ggplot2)
+library(scales)
+library(dplyr)
+library(splines)
+library(gam)
+library(dummies)
+library(cluster)
+library(mclust)
+library(factoextra)
+library(NbClust)
+library(dbscan)
+library(corrplot)
+library(topicmodels) 
+library(stringr) 
+library(tidytext) 
+library(ramify)
+library(plyr)
+library(quanteda)
+```
+
+
+## R Markdown
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+#Model - PAM
+model_pam = function(df_features, k, label)
+{
+ model_pam <- pam(df_features, k=k)
+ fviz_cluster(model_pam, df_features, ellipse.type="norm", geom='point', main=label)
+ return (model_pam)
+}
+
+viz_pam = function(model, label)
+{
+ fviz_cluster(model, ellipse.type="norm", geom='point', main=label)
+}
+```
+
+```{r}
+#Read-in the data
+full_lstm <- read.csv(file="LSTM_DF.csv", header=TRUE, sep=",")
+
+#Get random sample
+set.seed(42)
+indices <- sample(x=1:nrow(full_lstm), size=5000, replace=F)
+df_features_lstm <- full_lstm[indices,]
+
+df_features_lstm <- df_features_lstm[,-1]
+lstm_response <- df_features_lstm$Response
+df_features_lstm <- df_features_lstm[,-65]
+```
+
+```{r,message=FALSE, warning=FALSE}
+#Elbow Method : K-Means 
+fviz_nbclust(k.max = 6, df_features_lstm, kmeans, method='wss') + ggtitle('Within Cluster Sum of Squares vs Clusters for Data')
+```
+
+```{r}
+#Average Silhouette Method : PAM 
+fviz_nbclust(df_features_lstm, kmeans, method = "silhouette", k.max=6) +ggtitle('Avg. Silhouette vs Clusters for Data')
+```
+
+```{r}
+#Cluster Definition
+clusters = 4
+
+#Generate Model
+model <- model_pam(df_features_lstm, clusters, "PAM Clusters - LSTM")
+viz_pam(model, "PAM Clusters - Auto")
+```
+
+```{r}
+#Looking at Counts of Each Quality Class in Cluster
+cluster_df <- data.frame("Cluster_ID" = model$cluster, "Response" = as.factor(lstm_response))
+
+#Plot
+ggplot(cluster_df, aes(x=Cluster_ID)) + 
+  geom_bar(aes(fill=Response), color='darkgrey') +
+xlab('Cluster Number') + ylab('Post Count') +
+scale_x_continuous(breaks = pretty(cluster_df$Cluster_ID, n = clusters)) +
+ggtitle("Cluster Counts for Quality using PAM - LSTM")
+```
+
+```{r}
+#Read-in the data
+df_features_auto <- read.csv(file="Auto_DF_Sample.csv", header=TRUE, sep=",")
+df_features_auto <- df_features_auto[,-1]
+auto_response <- df_features_auto$Response
+df_features_auto <- df_features_auto[,-1025]
+
+#Drop low sum columns
+drop = c()
+for(i in 1:length(colnames(df_features_auto)))
+  {
+  if (sum(df_features_auto[,i])<1500)
+  {
+    drop = c(drop,i)
+  }
+}
+df_features_auto = df_features_auto[,-drop]
+```
+
+```{r,message=FALSE, warning=FALSE}
+#Elbow Method : K-Means 
+fviz_nbclust(k.max = 6, df_features_auto, kmeans, method='wss') + ggtitle('Within Cluster Sum of Squares vs Clusters for Data')
+```
+
+```{r}
+#Average Silhouette Method : PAM 
+fviz_nbclust(df_features_auto, kmeans, method = "silhouette", k.max=6) +ggtitle('Avg. Silhouette vs Clusters for Data')
+```
+
+```{r}
+#Cluster Definition
+clusters = 4
+
+#Generate Model
+model <- model_pam(df_features_auto, clusters, "PAM Clusters - Auto")
+viz_pam(model, "PAM Clusters - Auto")
+```
+
+```{r}
+#Looking at Counts of Each Quality Class in Cluster
+cluster_df <- data.frame("Cluster_ID" = model$cluster, "Response" = as.factor(auto_response))
+
+#Plot
+ggplot(cluster_df, aes(x=Cluster_ID)) + 
+  geom_bar(aes(fill=Response), color='darkgrey') +
+xlab('Cluster Number') + ylab('Post Count') +
+scale_x_continuous(breaks = pretty(cluster_df$Cluster_ID, n = clusters)) +
+ggtitle("Cluster Counts for Quality using PAM- AutoEncoder")
+```
+
+```{r}
+df_features_cnn <- read.csv(file="CNN_DF_Sample.csv", header=TRUE, sep=",")
+df_features_cnn <- df_features_cnn[,-1]
+cnn_response <- df_features_cnn$Response
+df_features_cnn <- df_features_cnn[,-65]
+
+#Drop zero columns
+drop = c()
+for(i in 1:length(colnames(df_features_cnn)))
+  {
+  if (sum(df_features_cnn[,i])==0)
+  {
+    drop = c(drop,i)
+  }
+}
+df_features_cnn = df_features_cnn[,-drop]
+```
+
+
+```{r,message=FALSE, warning=FALSE}
+#Elbow Method : K-Means 
+fviz_nbclust(k.max = 6, df_features_cnn, pam, method='wss') + ggtitle('Within Cluster Sum of Squares vs Clusters for Data')
+```
+
+```{r}
+#Average Silhouette Method : PAM 
+fviz_nbclust(df_features_cnn, pam, method = "silhouette", k.max=6) +ggtitle('Avg. Silhouette vs Clusters for Data')
+```
+
+
+
+```{r}
+#Cluster Definition
+clusters = 4
+
+#Generate Model
+model <- model_pam(df_features_cnn, clusters, "PAM Clusters - CNN")
+viz_pam(model, "PAM Clusters - CNN")
+```
+```{r}
+#Looking at Counts of Each Quality Class in Cluster
+cluster_df <- data.frame("Cluster_ID" = model$cluster, "Response" = as.factor(cnn_response))
+
+#Plot
+ggplot(cluster_df, aes(x=Cluster_ID)) + 
+  geom_bar(aes(fill=Response), color='darkgrey') +
+xlab('Cluster Number') + ylab('Post Count') +
+scale_x_continuous(breaks = pretty(cluster_df$Cluster_ID, n = clusters)) +
+ggtitle("Cluster Counts for Quality using PAM - CNN")
+```
+
+
+
+#foodporn 
+
+#nightlife 
+
+#cosmetics 
+
+#rockclimbing
