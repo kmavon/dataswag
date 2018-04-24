@@ -61,14 +61,16 @@ $(document).ready(function() {
     }
 	target = GET['target'];
   prepare_squid(target);
+  plot_pictures();
   fill_dropdown(target);
-	rank_images(target);
+  rank_images(target);
 });
 
 target_change = function(target) {
   rank_images(target);
   fill_dropdown(target);
   plot_squid(target);
+  plot_pictures();
 }
 
 $("svg").find("#Path-3").click(function(){

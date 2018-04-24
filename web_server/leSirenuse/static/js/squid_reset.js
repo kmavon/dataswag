@@ -26,7 +26,7 @@ prepare_squid = function(target){
       .attr("i", function(d, i) { return i; })
       .attr("class", "links")
 
-    //add satellites circles to svg (only if empty)
+    //add satellites circles to svg
     var circles = all.selectAll("circle")
       .data(nodes)
       .enter()
@@ -39,7 +39,7 @@ prepare_squid = function(target){
         .attr("fill", function(d, i) { return colors[i]; });
 
     //add center circle to svg
-    d3.select(".all")
+    var center = d3.select(".all")
       .append("circle")
       .attr("class", "center")
       .attr("id", result.squid.center.name)
@@ -49,17 +49,14 @@ prepare_squid = function(target){
       .attr("fill", center_color);
 
     //statellites transitions
+    setcenter(center);
     circles.data(nodes)
-    .transition()
-    .duration(2000)
-    .attr("cy", function(d, i) {
-      var theta = i*splits;
-      return d.distance * (w/2) * Math.sin(theta);
-    })
-    .attr("cx", function(d, i) {
-      var theta = i*splits;
-      return d.distance * (w/2) * Math.cos(theta);
-    });
+    .each(moveouter(
+        function(d) { return d*100; },
+        function(d, i) { return i*splits; },
+        this,
+        d3.selectAll("path").filter("[i='" + i + "']")
+    ));
 
     //links transitions
     
@@ -108,10 +105,7 @@ function plot_squid(target){
     var links = d3.selectAll(".links");
 
     //statellites transitions
-    for(i=0, i<circle.length, i++){
-        theta = 
-        attachListeners()
-    }
+
     circles.data(nodes, function(d){ return d ? d.name : this.id; })
     .each()
     .attr("cy", function(d) {
