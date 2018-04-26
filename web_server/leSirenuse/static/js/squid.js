@@ -1,7 +1,7 @@
 var h = window.getComputedStyle(document.getElementById("squid")).getPropertyValue("height").slice(0, -2);
 var w = window.getComputedStyle(document.getElementById("squid")).getPropertyValue("width").slice(0, -2);
 
-$("#squid").attr("viewBox", -w / 2.4 + " " + -h / 2 + " " + w + " " + h);
+$("#squid").attr("viewBox", -w / 2 + " " + -h / 2 + " " + w + " " + h);
 
 prepare_squid = function (target) {
 	url = "http://localhost:8000/es_tool/json/" + target + ".json";
@@ -31,11 +31,11 @@ prepare_squid = function (target) {
 			.attr("class", "links")
 			.attr("stroke-width", 2)
 			.attr("x1", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				return (result.squid.center.size / 20) * Math.cos(theta);
 			})
 			.attr("y1", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				return (result.squid.center.size / 20) * Math.sin(theta);
 			})
 			.style("stroke", "yellow");
@@ -78,16 +78,16 @@ prepare_squid = function (target) {
 			.transition()
 			.duration(2000)
 			.attr("cy", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
 			});
@@ -97,15 +97,15 @@ prepare_squid = function (target) {
 			.transition()
 			.duration(2000)
 			.attr("y2", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				return (rc + d) * Math.sin(theta);
 			})
 			.attr("x2", function (d, i) {
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				return (rc + d) * Math.cos(theta);
 			});
 
@@ -138,8 +138,8 @@ prepare_squid = function (target) {
 			.attr("in2", "gooey");
 
 		//Apply the filter to the group element of all the circles
-		var circleWrapper = d3.select(".all")
-			.style("filter", "url(#gooeyCodeFilter)");
+		//		var circleWrapper = d3.select(".all")
+		//			.style("filter", "url(#gooeyCodeFilter)");
 	});
 };
 
@@ -157,9 +157,9 @@ function plot_squid(target) {
 		var new_center = result.squid.center;
 		var new_center_DOM = d3.select("#" + new_center.name);
 
-		var new_theta = (new_center_DOM.attr("i")) * splits;
+		var new_theta = (new_center_DOM.attr("i")) * splits + Math.PI / 6;
 		var rc = result.squid.center.size / 20;
-		var d = old_center.distance * (w / 2.4);
+		var d = old_center.distance * (w / 2);
 		var rs = parseInt(old_center_DOM.attr("r"));
 		var new_cy = (rc + d + rs) * Math.sin(new_theta);
 		var new_cx = (rc + d + rs) * Math.cos(new_theta);
@@ -198,16 +198,16 @@ function plot_squid(target) {
 			.transition()
 			.duration(2000)
 			.attr("cy", function (d) {
-				var theta = d3.select(this).attr("i") * splits;
+				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d) {
-				var theta = d3.select(this).attr("i") * splits;
+				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
 				var rc = result.squid.center.size / 20;
-				var d = d.distance * (w / 2.4);
+				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
 			});
@@ -217,24 +217,24 @@ function plot_squid(target) {
 			.duration(2000)
 			.attr("y1", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				return rc * Math.sin(theta);
 			})
 			.attr("x1", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits;
+				var theta = i * splits + Math.PI / 6;
 				return rc * Math.cos(theta);
 			})
 			.attr("y2", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits;
-				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2.4);
+				var theta = i * splits + Math.PI / 6;
+				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
 				return (d + rc) * Math.sin(theta);
 			})
 			.attr("x2", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits;
-				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2.4);
+				var theta = i * splits + Math.PI / 6;
+				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
 				return (d + rc) * Math.cos(theta);
 			});
 	});
@@ -243,25 +243,99 @@ function plot_squid(target) {
 plot_pictures = function () {
 	url = "http://localhost:8000/get_scored_pics"
 	d3.json(url).then(function (result) {
-		console.log(result)
-		d3.select(".all")
-			.selectAll(".satellite_pic")
-			.data(result)
-			.enter()
-			.append("circle")
-			.attr("cx", function (d) {
-				function get_theta(i){
-					var lines = d3.selectAll(".links")
-					if (i > lines.length / 2) {
-						return Math.PI / 2
+		data = result.scores
+		d3.selectAll(".pics")
+			.transition()
+			.duration(200)
+			.attr("r", 0);
+		setTimeout(function () {
+
+			d3.selectAll(".pics").remove();
+		}, 200);
+		var pic_tooltip = d3.select(".all").append("text").attr("id", "pic_tooltip");
+		var communities = d3.selectAll("circle");
+		var simulations = []
+		var tick_closures = {}
+		setTimeout(function () {
+
+			var coll_sim = d3.forceSimulation(data).force("charge", d3.forceCollide().radius(10))
+			communities.each(
+				function () {
+					var comm = {
+						r: parseInt(d3.select(this).attr("r")),
+						cx: parseInt(d3.select(this).attr("cx")),
+						cy: parseInt(d3.select(this).attr("cy")),
+						name: d3.select(this).attr("id"),
+						fill: d3.select(this).attr("fill")
 					}
-					return -Math.PI / 2
-				}
-				var com_cx = d3.select("#" + d.community).attr("cx");
-				var com_cy = d3.select("#" + d.community).attr("cy");
-				var com_r = d3.select("#" + d.community).attr("r");
-				var theta = get_theta(parseInt(d3.select("#" + d.community).attr("i")));
-				return ()
-			})
+					comm_pics = data.filter(function (d) {
+						return d.community === comm.name
+					})
+
+					nodes = d3.select(".all")
+						.selectAll("." + comm.name + "_pics")
+						.data(comm_pics)
+						.enter()
+						.append("circle")
+						.attr("class", comm.name + "_pics pics")
+						.attr("r", "5")
+						.attr("fill", comm.fill)
+						.attr("stroke", "black")
+						.on("mouseover", function (d) {
+							pic_tooltip
+								.attr("x", parseInt(d3.select(this).attr("cx")) + 8)
+								.attr("y", parseInt(d3.select(this).attr("cy")) - 8)
+								.style("color", "black")
+								.style("font-size", "11")
+								.style("display", "block")
+								.text(d.pic_url)
+							d3.select("#post_" + d.pic_url.replace(".", "_")).style("border", "5px solid " + comm.fill)
+						})
+						.on("mouseout", function (d) {
+							pic_tooltip.style("display", "none")
+							d3.selectAll(".post").style("border", "2px solid #4d7a89")
+						})
+
+					nodes.transition()
+						.duration(500)
+						.attr("r", "5")
+
+					var comm_tick = (function () {
+						var pics = nodes;
+						return function () {
+							if (typeof pics !== 'undefined')
+								pics
+								.attr("cx", function (d) {
+									return d.x;
+								})
+								.attr("cy", function (d) {
+									return d.y;
+								});
+						}
+					})();
+
+					tick_closures[comm.name] = comm_tick
+
+					var simulation = d3.forceSimulation(comm_pics)
+						.force("r", d3.forceRadial(function (d) {
+								return comm.r + 10;
+							})
+							.x(comm.cx)
+							.y(comm.cy)
+						)
+						.on("tick", tick_closures[comm.name]);
+					simulations.push(simulation)
+				})
+		}, 2000);
+
+		//		function ticked() {
+		//			nodes
+		//				.attr("cx", function (d) {
+		//					return d.x;
+		//				})
+		//				.attr("cy", function (d) {
+		//					return d.y;
+		//				});
+		//		}
 	});
 }

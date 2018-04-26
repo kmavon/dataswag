@@ -501,3 +501,7 @@ padding: 9vh 0vh;
    margin: 23px auto;
  }
 }
+
+.focus{
+	border: 5px;
+}
