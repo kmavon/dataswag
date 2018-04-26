@@ -69,11 +69,13 @@ def get_scored_pics(request):
     scores_json = {}
     score_list = []
     i=0
+    clusters = ["Night People", "Summer Lovers", "Sport Addicts", "Fashion Victims",
+    "Travel Spirits", "Food Maniacs"]
+
     for root, dirs, files in os.walk(settings.MEDIA_ROOT):
         for filename in files:
-            i = i % 6
-            print(i)
-            score_list.append({"pic_url": filename, "community": "cluster" + str(i)})
+            i = i % len(clusters)
+            score_list.append({"pic_url": filename, "community": clusters[i]})
             scores_json["scores"] = score_list
             i+=1
     return HttpResponse(json.dumps(scores_json))

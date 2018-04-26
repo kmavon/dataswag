@@ -37,10 +37,11 @@ rank_images = function (target) {
 };
 
 fill_dropdown = function (target) {
-	url = "http://localhost:8000/es_tool/json/" + target + ".json"
-	d3.json(url).then(function (result) {
-		var satellites = result.squid.satellites;
-		var center = result.squid.center;
+	url = "http://localhost:8000/es_tool/json/clusters.json"
+	d3.json(url).then(function (clusters_file) {
+		var result = clusters_file.clusters.filter(function(squid){ return squid.center.name === target.replace("_", " ")})[0]
+		var satellites = result.satellites;
+		var center = result.center;
 
 		d3.select("#dropdownMenuButton")
 			.html(center.name);

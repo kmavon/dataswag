@@ -1,0 +1,80 @@
+{ "clusters":[
+  {
+    "center": {
+      "name": "Summer Lovers",
+      "size": 1000
+    },
+    "satellites": [
+       { "name": "Night People", "size": 750, "distance": 0.7 },
+       { "name": "Sport Addicts", "size": 500, "distance": 0.3 },
+       { "name": "Fashion Victims", "size": 250, "distance": 0.1 },
+       { "name": "Travel Spirits", "size": 100, "distance": 0.5 },
+       { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+    ]
+  },
+  {
+      "center": {
+        "name": "Night People", "size": 750
+      },
+      "satellites": [
+         { "name": "Summer Lovers", "size": 1000, "distance": 0.3 },
+         { "name": "Sport Addicts", "size": 500, "distance": 0.5 },
+         { "name": "Fashion Victims", "size": 250, "distance": 0.1 },
+         { "name": "Travel Spirits", "size": 100, "distance": 0.9 },
+         { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+      ]
+    },
+    {
+        "center": {
+          "name": "Sport Addicts",
+          "size": 500
+        },
+        "satellites": [
+           { "name": "Summer Lovers", "size": 1000, "distance": 0.1 },
+           { "name": "Night People", "size": 750, "distance": 0.7 },
+           { "name": "Fashion Victims", "size": 250, "distance": 0.4 },
+           { "name": "Travel Spirits", "size": 100, "distance": 0.3 },
+           { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+        ]
+      },
+      {
+          "center": {
+            "name": "Fashion Victims",
+            "size": 250
+          },
+          "satellites": [
+             { "name": "Summer Lovers", "size": 1000, "distance": 0.1 },
+             { "name": "Night People", "size": 750, "distance": 0.4 },
+             { "name": "Sport Addicts", "size": 500, "distance": 0.6 },
+             { "name": "Travel Spirits", "size": 100, "distance": 0.7 },
+             { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+          ]
+        },
+        {
+            "center": {
+              "name": "Travel Spirits",
+              "size": 100
+            },
+            "satellites": [
+               { "name": "Summer Lovers", "size": 1000, "distance": 0.4 },
+               { "name": "Night People", "size": 750, "distance": 0.9 },
+               { "name": "Sport Addicts", "size": 500, "distance": 0.7 },
+               { "name": "Fashion Victims", "size": 250, "distance": 0.2 },
+               { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+            ]
+          },
+          {
+              "center": {
+                "name": "Food Maniacs",
+                "size": 300
+              },
+              "satellites": [
+                 { "name": "Summer Lovers", "size": 1000, "distance": 0.4 },
+                 { "name": "Night People", "size": 750, "distance": 0.9 },
+                 { "name": "Sport Addicts", "size": 500, "distance": 0.7 },
+                 { "name": "Fashion Victims", "size": 250, "distance": 0.2 },
+                 { "name": "Travel Spirits", "size": 100, "distance": 0.6 }
+              ]
+            }
+]
+}

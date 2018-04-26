@@ -4,11 +4,13 @@ var w = window.getComputedStyle(document.getElementById("squid")).getPropertyVal
 $("#squid").attr("viewBox", -w / 2 + " " + -h / 2 + " " + w + " " + h);
 
 prepare_squid = function (target) {
-	url = "http://localhost:8000/es_tool/json/" + target + ".json";
-	d3.json(url).then(function (result) {
-
+	url = "http://localhost:8000/es_tool/json/clusters.json"
+	d3.json(url).then(function (clusters_file) {
+		var result = clusters_file.clusters.filter(function (squid) {
+			return squid.center.name === target.replace("_", " ")
+		})[0]
 		//some variables needed for the viz
-		var nodes = result.squid.satellites;
+		var nodes = result.satellites;
 		var colors = []
 		for (i = 0; i < nodes.length; i++) {
 			colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16));
@@ -17,6 +19,7 @@ prepare_squid = function (target) {
 		var splits = (2 * Math.PI) / nodes.length;
 		var squid = d3.select("#squid");
 		var all = squid.append("g").attr("class", "all");
+
 		//empty the svg
 		//squid.selectAll("*").remove();
 
@@ -32,11 +35,11 @@ prepare_squid = function (target) {
 			.attr("stroke-width", 2)
 			.attr("x1", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				return (result.squid.center.size / 20) * Math.cos(theta);
+				return (result.center.size / 20) * Math.cos(theta);
 			})
 			.attr("y1", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				return (result.squid.center.size / 20) * Math.sin(theta);
+				return (result.center.size / 20) * Math.sin(theta);
 			})
 			.style("stroke", "yellow");
 
@@ -50,10 +53,10 @@ prepare_squid = function (target) {
 				return i;
 			})
 			.attr("id", function (d) {
-				return d.name;
+				return d.name.replace(" ", "_");
 			})
 			.attr("onclick", function (d) {
-				return "target_change('" + d.name + "')";
+				return "target_change('" + d.name.replace(" ", "_") + "')";
 			})
 			.attr("class", "satellite")
 			.attr("r", function (d) {
@@ -67,10 +70,10 @@ prepare_squid = function (target) {
 		d3.select(".all")
 			.append("circle")
 			.attr("class", "center")
-			.attr("id", result.squid.center.name)
+			.attr("id", result.center.name.replace(" ", "_"))
 			.attr("cy", 0)
 			.attr("cx", 0)
-			.attr("r", result.squid.center.size / 20)
+			.attr("r", result.center.size / 20)
 			.attr("fill", center_color);
 
 		//statellites transitions
@@ -79,14 +82,14 @@ prepare_squid = function (target) {
 			.duration(2000)
 			.attr("cy", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
@@ -98,13 +101,13 @@ prepare_squid = function (target) {
 			.duration(2000)
 			.attr("y2", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				return (rc + d) * Math.sin(theta);
 			})
 			.attr("x2", function (d, i) {
 				var theta = i * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				return (rc + d) * Math.cos(theta);
 			});
@@ -144,21 +147,24 @@ prepare_squid = function (target) {
 };
 
 function plot_squid(target) {
-	url = "http://localhost:8000/es_tool/json/" + target + ".json"
-	d3.json(url).then(function (result) {
-		var nodes = result.squid.satellites;
+	url = "http://localhost:8000/es_tool/json/clusters.json"
+	d3.json(url).then(function (clusters_file) {
+		var result = clusters_file.clusters.filter(function (squid) {
+			return squid.center.name === target.replace("_", " ")
+		})[0]
+		var nodes = result.satellites;
 		var splits = (2 * Math.PI) / nodes.length;
 		var squid = d3.select("#squid");
 
 		var old_center_DOM = d3.select(".center");
 		var old_center = nodes.filter(function (d) {
-			return d.name == old_center_DOM.attr("id");
+			return d.name == old_center_DOM.attr("id").replace("_", " ");
 		})[0];
-		var new_center = result.squid.center;
-		var new_center_DOM = d3.select("#" + new_center.name);
+		var new_center = result.center;
+		var new_center_DOM = d3.select("#" + new_center.name.replace(" ", "_"));
 
 		var new_theta = (new_center_DOM.attr("i")) * splits + Math.PI / 6;
-		var rc = result.squid.center.size / 20;
+		var rc = result.center.size / 20;
 		var d = old_center.distance * (w / 2);
 		var rs = parseInt(old_center_DOM.attr("r"));
 		var new_cy = (rc + d + rs) * Math.sin(new_theta);
@@ -169,7 +175,7 @@ function plot_squid(target) {
 		old_center_DOM.classed("satellite", true);
 		old_center_DOM.attr("i", new_center_DOM.attr("i"));
 		old_center_DOM.attr("onclick", function (d) {
-			return "target_change('" + old_center.name + "')"
+			return "target_change('" + old_center.name.replace(" ", "_") + "')"
 		});
 		old_center_DOM.transition()
 			.duration(2000)
@@ -193,20 +199,20 @@ function plot_squid(target) {
 
 		//statellites transitions
 		circles.data(nodes, function (d) {
-				return d ? d.name : this.id;
+				return d ? d.name : this.id.replace("_", " ");
 			})
 			.transition()
 			.duration(2000)
 			.attr("cy", function (d) {
 				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d) {
 				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
-				var rc = result.squid.center.size / 20;
+				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
@@ -248,12 +254,18 @@ plot_pictures = function () {
 			.transition()
 			.duration(200)
 			.attr("r", 0);
+		d3.selectAll(".pics").remove()
 		setTimeout(function () {
 
 			d3.selectAll(".pics").remove();
 		}, 200);
-		var pic_tooltip = d3.select(".all").append("text").attr("id", "pic_tooltip");
 		var communities = d3.selectAll("circle");
+		var pic_tooltip;
+		if(d3.select("#pic_tooltip").empty()){
+			pic_tooltip = d3.select(".all").append("text").attr("id", "pic_tooltip");
+		} else {
+			pic_tooltip = d3.select("#pic_tooltip");
+		}
 		var simulations = []
 		var tick_closures = {}
 		setTimeout(function () {
@@ -265,7 +277,7 @@ plot_pictures = function () {
 						r: parseInt(d3.select(this).attr("r")),
 						cx: parseInt(d3.select(this).attr("cx")),
 						cy: parseInt(d3.select(this).attr("cy")),
-						name: d3.select(this).attr("id"),
+						name: d3.select(this).attr("id").replace("_", " "),
 						fill: d3.select(this).attr("fill")
 					}
 					comm_pics = data.filter(function (d) {
@@ -327,15 +339,5 @@ plot_pictures = function () {
 					simulations.push(simulation)
 				})
 		}, 2000);
-
-		//		function ticked() {
-		//			nodes
-		//				.attr("cx", function (d) {
-		//					return d.x;
-		//				})
-		//				.attr("cy", function (d) {
-		//					return d.y;
-		//				});
-		//		}
 	});
 }

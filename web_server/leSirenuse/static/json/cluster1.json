@@ -3,11 +3,11 @@
       "name": "Night People", "size": 750
     },
     "satellites": [
-       { "name": "cluster0", "size": 1000, "distance": 0.3 },
-       { "name": "cluster2", "size": 500, "distance": 0.5 },
-       { "name": "cluster3", "size": 250, "distance": 0.1 },
-       { "name": "cluster4", "size": 100, "distance": 0.9 },
-       { "name": "cluster5", "size": 300, "distance": 0.6 }
+       { "name": "Summer Lovers", "size": 1000, "distance": 0.3 },
+       { "name": "Sport Addicts", "size": 500, "distance": 0.5 },
+       { "name": "Fashion Victims", "size": 250, "distance": 0.1 },
+       { "name": "Travel Spirits", "size": 100, "distance": 0.9 },
+       { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
     ]
   }
 }
