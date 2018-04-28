@@ -70,7 +70,7 @@ class Main:
     
 
     #Helper function to generate distance dictionary
-    def get_cluster_presence(self, df, extra_cols, k, model, image_left=True):
+    def get_cluster_presence(self, df, extra_cols, model, image_left=True):
 
         #Filter Mean and Variance as per Text Input
         if image_left:
@@ -91,13 +91,14 @@ class Main:
         
         #Calculate Probabilities of Presence
         for i in range(len(data)):
-            lpr = self.lmnd_diag_full(data.iloc[i,:].values.reshape(1,-1), self.means, self.covariances) + np.log(self.weights)
+            current = data.iloc[i,:].values.reshape(1,-1)
+            lpr = self.lmnd_diag_full(current, self.means, self.covariances) + np.log(self.weights)
             logprob = logsumexp(lpr, axis=1)
             responsibilities = np.exp(lpr - logprob[:, np.newaxis])
             final[i,:] = np.append(responsibilities[0],np.argmax(responsibilities[0]))
         
         #Create Dataframe
-        colnames = ['Prob_'+str(i) for i in range(k)] + ['Prediction']
+        colnames = ['Prob_'+str(i) for i in range(len(self.means))] + ['Prediction']
         df_final = pd.DataFrame(final, columns=colnames) 
         df_final['File'] = df['File']
         return df_final
