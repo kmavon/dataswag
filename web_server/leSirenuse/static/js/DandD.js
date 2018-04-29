@@ -130,7 +130,7 @@ $(document).ready(function() {
                         $form.addClass( data.success == true ? 'is-success' : 'is-error' );
                         if( !data.success ) $errorMsg.text( data.error );
 						console.log('pressed');
-                		window.location = 'http://localhost:8000/es_tool/ranking.html?target=cluster0';
+                		window.location = 'http://localhost:8000/es_tool/ranking.html?target=Summer_Lovers';
                     },
                     error: function()
                     {
