@@ -33,10 +33,11 @@ class Main:
         return user_list
         
     #Helper Function to get images from train path
-    def get_train_posts(self, user_list):
+    def get_train_posts(self, user_list, limit):
         list_users = user_list
         self.train_posts = []
         for i in list_users:
+            count = 0
             temp_path = self.train_path + i
             for j in glob.glob(temp_path + '/*.jpg'):
                 temp_dict = {}
@@ -53,6 +54,9 @@ class Main:
                 temp_dict['Image'] = np.array(img)
                 temp_dict['Caption'] = caption
                 self.train_posts.append(temp_dict)
+                count +=1
+                if count==limit:
+                    break
         print("Number of posts loaded:", len(self.train_posts))
         return pd.DataFrame(self.train_posts)
     
