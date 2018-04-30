@@ -240,7 +240,7 @@ d3.json("http://localhost:8000/es_tool/json/caption.json").then(function (datase
 		})
 		.attr("font-family", "Karla")
 		.attr("font-size", function (d) {
-			return d.r / 2;
+			return d.r / 3;
 		})
 		.attr("fill", function (d) {
 			if(d.data.score / 100 > 0.2){

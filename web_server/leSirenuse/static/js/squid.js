@@ -41,7 +41,7 @@ prepare_squid = function (target) {
 				var theta = i * splits + Math.PI / 6;
 				return (result.center.size / 20) * Math.sin(theta);
 			})
-			.style("stroke", "yellow");
+			.style("stroke", "#99aeb5");
 
 		//add satellites circles to svg (only if empty)
 		var circles = all
@@ -62,9 +62,10 @@ prepare_squid = function (target) {
 			.attr("r", function (d) {
 				return d.size / 20;
 			})
-			.attr("fill", function (d, i) {
-				return colors[i];
-			});
+			.attr("fill", function (d) {
+				return d.fill;
+			})
+			.style("stroke","#4d7a89");
 
 		//add center circle to svg
 		d3.select(".all")
@@ -74,7 +75,8 @@ prepare_squid = function (target) {
 			.attr("cy", 0)
 			.attr("cx", 0)
 			.attr("r", result.center.size / 20)
-			.attr("fill", center_color);
+			.attr("fill", result.center.fill)
+			.style("stroke","#4d7a89");
 
 		//statellites transitions
 		circles.data(nodes)
@@ -219,9 +221,8 @@ function plot_squid(target) {
 			});
 
 		//links transitions
-		links.transition()
-			.duration(2000)
-			.attr("y1", function () {
+		setTimeout(function () {
+		links.attr("y1", function () {
 				var i = d3.select(this).attr("i");
 				var theta = i * splits + Math.PI / 6;
 				return rc * Math.sin(theta);
@@ -242,7 +243,18 @@ function plot_squid(target) {
 				var theta = i * splits + Math.PI / 6;
 				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
 				return (d + rc) * Math.cos(theta);
-			});
+			});}, 100);
+
+			links.transition()
+			.duration(100)
+			.style("opacity", 0);
+			links.transition()
+			.duration(500)
+			.delay(1500)
+			.style("opacity", 1);
+			console.log(result)
+			console.log(d3.select("#dropdownMenuButton"))
+			d3.select("#dropdownMenuButton").style("border", "2px solid " + result.center.fill)
 	});
 }
 
@@ -292,22 +304,22 @@ plot_pictures = function () {
 						.attr("class", comm.name + "_pics pics")
 						.attr("r", "5")
 						.attr("fill", comm.fill)
-						.attr("stroke", "black")
+						.attr("stroke", "#4d7a89")
 						.on("mouseover", function (d) {
 							pic_tooltip
 								.attr("x", parseInt(d3.select(this).attr("cx")) + 8)
 								.attr("y", parseInt(d3.select(this).attr("cy")) - 8)
-								.style("color", "black")
+								.style("fill", "#4d7a89")
+								.style("background-color", "red")
 								.style("font-size", "11")
 								.style("display", "block")
 								.text(d.pic_url)
-							d3.select("#post_" + d.pic_url.replace(".", "_")).style("border", "5px solid " + comm.fill)
+							d3.select("#post_" + d.pic_url.replace(".", "_")).style("border", "2px solid " + comm.fill)
 						})
 						.on("mouseout", function (d) {
 							pic_tooltip.style("display", "none")
 							d3.selectAll(".post").style("border", "2px solid #4d7a89")
 						})
-
 					nodes.transition()
 						.duration(500)
 						.attr("r", "5")

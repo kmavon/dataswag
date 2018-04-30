@@ -2,20 +2,20 @@
   {
     "center": {
       "name": "Summer Lovers",
-      "color": "red",
+      "fill": "#EF6969",
       "size": 1000
     },
     "satellites": [
-       { "name": "Night People", "size": 750, "distance": 0.7, "color": "blue"},
-       { "name": "Sport Addicts", "size": 500, "distance": 0.3 },
-       { "name": "Fashion Victims", "size": 250, "distance": 0.1 },
-       { "name": "Travel Spirits", "size": 100, "distance": 0.5 },
-       { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+       { "name": "Night People", "size": 750, "distance": 0.7, "fill": "#135E94"},
+       { "name": "Sport Addicts", "size": 500, "distance": 0.3, "fill": "#5EB1BF"},
+       { "name": "Fashion Victims", "size": 250, "distance": 0.1, "fill": "#CDEDF6" },
+       { "name": "Travel Spirits", "size": 100, "distance": 0.5, "fill": "#ECA189" },
+       { "name": "Food Maniacs", "size": 300, "distance": 0.6, "fill": "#6C99FF" }
     ]
   },
   {
       "center": {
-        "name": "Night People", "size": 750
+        "name": "Night People", "size": 750, "fill": "#135E94"
       },
       "satellites": [
          { "name": "Summer Lovers", "size": 1000, "distance": 0.7 },
@@ -28,7 +28,8 @@
     {
         "center": {
           "name": "Sport Addicts",
-          "size": 500
+          "size": 500,
+          "fill": "#5EB1BF"
         },
         "satellites": [
            { "name": "Summer Lovers", "size": 1000, "distance": 0.3 },
@@ -41,7 +42,8 @@
       {
           "center": {
             "name": "Fashion Victims",
-            "size": 250
+            "size": 250,
+            "fill": "#CDEDF6"
           },
           "satellites": [
              { "name": "Summer Lovers", "size": 1000, "distance": 0.1 },
@@ -54,7 +56,8 @@
         {
             "center": {
               "name": "Travel Spirits",
-              "size": 100
+              "size": 100,
+              "fill": "#ECA189"
             },
             "satellites": [
                { "name": "Summer Lovers", "size": 1000, "distance": 0.5 },
@@ -67,7 +70,8 @@
           {
               "center": {
                 "name": "Food Maniacs",
-                "size": 300
+                "size": 300,
+                "fill": "#6C99FF"
               },
               "satellites": [
                  { "name": "Summer Lovers", "size": 1000, "distance": 0.6 },
