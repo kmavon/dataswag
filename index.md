@@ -25,4 +25,8 @@ In order to accomplish those two goals we thought of a complete pipeline that wo
 ### Content Recommendation
 ### Followers Classification
 ### The tool - Frank
+![Ranking](img/ranking-crop.png)
+
+![Recommending](img/recommending-crop.png)
+
 ### Conclusions and Future Work
