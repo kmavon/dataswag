@@ -70,15 +70,11 @@ class Main:
     
 
     #Helper function to generate distance dictionary
-    def get_cluster_presence(self, df, extra_cols, model, image_left=True):
+    def get_cluster_presence(self, df, extra_cols, model):
 
         #Filter Mean and Variance as per Text Input
-        if image_left:
-            self.means = model.means_ if self.captions_flag else model.means_[:,:64] 
-            self.covariances = model.covariances_ if self.captions_flag else model.covariances_[:,:64,:64]
-        else:
-            self.means = model.means_ if self.captions_flag else model.means_[:,64:]
-            self.covariances = model.covariances_ if self.captions_flag else model.covariances_[:,64:,64:] 
+        self.means = model.means_ if self.captions_flag else model.means_[:,64:]
+        self.covariances = model.covariances_ if self.captions_flag else model.covariances_[:,64:,64:] 
         self.weights = model.weights_
         
         #Filter Data and save file names
