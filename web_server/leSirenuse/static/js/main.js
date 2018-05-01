@@ -81,8 +81,8 @@ $(document).ready(function () {
 	}
 	target = GET['target'];
 	$(document).ajaxStop(function () {
-		//$("#loading").attr("style", "display: none;")
-		$("#loading").hide
+		$("#loading").attr("style", "display: none;")
+		//$("#loading").hide
 	});
 	prepare_squid(target);
 	plot_pictures();
@@ -97,21 +97,74 @@ target_change = function (target) {
 	plot_pictures();
 }
 
-var scompari = function(){
+
+var sotto = document.getElementById("sotto");
+var style = window.getComputedStyle(sotto);
+
+var scompari = function () {
+	d3.select("#sotto").style("margin-left", style.marginLeft)
+	d3.select("#sotto").style("margin-right", "auto")
 	d3.select("#sopra")
-	.transition()
-	.duration(2000)
-	.style("width", "0px")
-	.style()
-	//.each("end", appari())
+		.transition()
+		.duration(1000)
+		.style("color", "#4d7a89")
+
+	d3.select("#sotto")
+		.transition()
+		.duration(1000)
+		.style("width", "0px")
+	setTimeout(function () {
+		appari()
+	}, 1000)
 }
 
-var appari = function(){
+
+var appari = function () {
 	d3.select("#sopra")
-	.transition()
-	.duration(300)
-	.style("width", "110px")
-	.each("end", scompari())
+		.transition()
+		.duration(1000)
+		.style("color", "white")
+
+	d3.select("#sotto")
+		.transition()
+		.duration(1000)
+		.style("width", "110px")
+	setTimeout(function () {
+		scomparidestra()
+	}, 1000)
+}
+/*secondo ciclo*/
+var scomparidestra = function () {
+	d3.select("#sotto").style("margin-right", style.marginRight)
+	d3.select("#sotto").style("margin-left", "auto")
+	d3.select("#sopra")
+		.transition()
+		.duration(1000)
+		.style("color", "#4d7a89")
+
+	d3.select("#sotto")
+		.transition()
+		.duration(1000)
+		.style("width", "0px")
+	setTimeout(function () {
+		apparidestra()
+	}, 1000)
+}
+
+
+var apparidestra = function () {
+	d3.select("#sopra")
+		.transition()
+		.duration(1000)
+		.style("color", "white")
+
+	d3.select("#sotto")
+		.transition()
+		.duration(1000)
+		.style("width", "110px")
+	setTimeout(function () {
+		scompari()
+	}, 1000)
 }
 
 $("svg").find("#Path-3").click(function () {

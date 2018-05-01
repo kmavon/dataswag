@@ -515,9 +515,6 @@ body {
 		margin-top: 2.5vh;
 	}
 
-
-
-
 }
 
 @media screen and (min-width: 1920px) {
@@ -539,7 +536,7 @@ body {
 	height: 5vh;
 	width: 110px;
 	color: black;
-	background-color: white;
+	background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
 }
 
 #sopra {
@@ -551,5 +548,10 @@ body {
 	height: 5vh;
 	width: 110px;
 	color: white;
-	background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+}
+
+@media screen and (min-width: 1920px) {
+	.container-fluid {
+		max-width: 1920px;
+	}
 }

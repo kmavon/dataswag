@@ -263,8 +263,9 @@ plot_pictures = function () {
 		d3.selectAll(".pics")
 			.transition()
 			.duration(200)
-			.attr("r", 0);
-		d3.selectAll(".pics").remove()
+			.attr("r", 0)
+		setTimeout(function()  { d3.selectAll(".pics").remove() }, 200);
+		
 		setTimeout(function () {
 
 			d3.selectAll(".pics").remove();
