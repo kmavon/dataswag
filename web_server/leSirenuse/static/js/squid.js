@@ -252,8 +252,6 @@ function plot_squid(target) {
 			.duration(500)
 			.delay(1500)
 			.style("opacity", 1);
-			console.log(result)
-			console.log(d3.select("#dropdownMenuButton"))
 			d3.select("#dropdownMenuButton").style("border", "2px solid " + result.center.fill)
 	});
 }

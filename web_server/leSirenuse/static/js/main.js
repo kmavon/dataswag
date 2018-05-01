@@ -1,45 +1,50 @@
 rank_images = function (target) {
-	d3.json("http://localhost:8000/get_ranked_pics/", {
-		method: 'POST',
+	$.ajax({
+		url: "http://localhost:8000/get_ranked_pics/",
+		type: "POST",
 		data: {
 			'target': target
+		},
+		dataType: "json",
+		success: function (result) {
+			var data = result["rank"];
+			var container = d3.select("#align-items-flex-start");
+			container.text("");
+			var pics_cont = container.selectAll("div")
+				.data(data).enter()
+				.append("div")
+				.attr("class", "cont-post");
+
+			pics_cont.data(data)
+				.append("div")
+				.attr("class", "post-number")
+				.text(function (d, i) {
+					return i + 1;
+				});
+
+			pics_cont.data(data)
+				.append("a")
+				.attr("href", function (d) {
+					return "http://localhost:8000/es_tool/single.html?pic=" + d.pic_url;
+				})
+				.append("div")
+				.attr("class", "post ranked")
+				.attr("id", function (d) {
+					return "post_" + d.pic_url.replace(".", "_");
+				})
+				.attr("style", function (d) {
+					return "background: url(http://media.localhost:8000/media/" + d.pic_url + ") 50% 50% no-repeat; background-size:cover;"
+				});
 		}
-	}).then(function (result) {
-		var data = result["rank"];
-		var container = d3.select("#align-items-flex-start");
-		container.text("");
-		var pics_cont = container.selectAll("div")
-			.data(data).enter()
-			.append("div")
-			.attr("class", "cont-post");
-
-		pics_cont.data(data)
-			.append("div")
-			.attr("class", "post-number")
-			.text(function (d, i) {
-				return i + 1;
-			});
-
-		pics_cont.data(data)
-			.append("a")
-			.attr("href", function (d) {
-				return "http://localhost:8000/es_tool/single.html?pic=" + d.pic_url;
-			})
-			.append("div")
-			.attr("class", "post ranked")
-			.attr("id", function (d) {
-				return "post_" + d.pic_url.replace(".", "_");
-			})
-			.attr("style", function (d) {
-				return "background: url(http://media.localhost:8000/media/" + d.pic_url + ") 50% 50% no-repeat; background-size:cover;"
-			});
-	})
+	});
 };
 
 fill_dropdown = function (target) {
 	url = "http://localhost:8000/es_tool/json/clusters.json"
 	d3.json(url).then(function (clusters_file) {
-		var result = clusters_file.clusters.filter(function(squid){ return squid.center.name === target.replace("_", " ")})[0]
+		var result = clusters_file.clusters.filter(function (squid) {
+			return squid.center.name === target.replace("_", " ")
+		})[0]
 		var satellites = result.satellites;
 		var center = result.center;
 
@@ -64,6 +69,7 @@ fill_dropdown = function (target) {
 };
 
 $(document).ready(function () {
+	scompari();
 	var GET = {};
 	var query = window.location.search.substring(1).split("&");
 	for (var i = 0, max = query.length; i < max; i++) {
@@ -74,6 +80,10 @@ $(document).ready(function () {
 		GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
 	}
 	target = GET['target'];
+	$(document).ajaxStop(function () {
+		//$("#loading").attr("style", "display: none;")
+		$("#loading").hide
+	});
 	prepare_squid(target);
 	plot_pictures();
 	fill_dropdown(target);
@@ -85,6 +95,23 @@ target_change = function (target) {
 	fill_dropdown(target);
 	plot_squid(target);
 	plot_pictures();
+}
+
+var scompari = function(){
+	d3.select("#sopra")
+	.transition()
+	.duration(2000)
+	.style("width", "0px")
+	.style()
+	//.each("end", appari())
+}
+
+var appari = function(){
+	d3.select("#sopra")
+	.transition()
+	.duration(300)
+	.style("width", "110px")
+	.each("end", scompari())
 }
 
 $("svg").find("#Path-3").click(function () {
