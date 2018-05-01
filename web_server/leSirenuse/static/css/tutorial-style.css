@@ -1,0 +1,113 @@
+p, h1 {
+  font-family: "Karla";
+  z-index: 2;
+  color: #494949;
+}
+
+h6, a {
+  color: #4d7a89;
+  font-family: "Karla";
+}
+
+a {
+  text-decoration: underline;
+}
+
+
+.container {
+  background-color: white;
+}
+#head-bar, #footer{
+  /*border-bottom: 1px solid #4d7a89;*/
+  background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+}
+
+#return-button {
+  /*border: 1px solid #4d7a89;*/
+  text-align: center;
+  font-family: 'Karla';
+  padding: 0.5vh;
+  margin: 2vh 4vw;
+  max-width: 160px;
+  color: #4d7a89;
+  background-color: white;
+}
+
+#intro-title {
+  padding-top:25vh;
+}
+
+#gradient {
+  margin-top: 16vh;
+  height: 45vh;
+  z-index: 1;
+  margin-left: -18vh;
+  background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+}
+
+.chapter {
+  margin-top: 10vh;
+  text-align: center;
+}
+
+#start-button{
+  margin-top: 10vh;
+  text-align: center;
+}
+
+#upload-section, #rank-section, #evaluate-section, #bonus-section {
+  margin-top: 20vh;
+  border-top: 1px solid #494949;
+}
+
+#upload-mockup, #rank-mockup-2, #evalute-mockup, #footer{
+  margin-top: 16vh;
+}
+
+#mockup-margin{
+  padding: 0;
+}
+
+#rank-right {
+  text-align: right;
+}
+
+#datashack, #project, #staff {
+  color: white;
+  margin: 6vh;
+}
+
+#project, #staff {
+  margin: 6vh auto 1vh;
+}
+
+ul {
+   padding: 10px;
+   margin-bottom: 6vh;
+   color: white;
+   list-style-type: none;
+   font-family: 'Inconsolata';
+}
+
+.student {
+  letter-spacing: .05rem;
+}
+
+.poli {
+  width: 80%;
+  height: auto;
+  margin: 6vh auto 1vh;
+  bottom:51px;
+  right: -6vw;
+  position: absolute;
+}
+
+.harvard {
+
+  width: 20%;
+  height: auto;
+  margin: 6vh auto 1vh;
+  bottom:51px;
+  right: 4vw;
+  position: absolute;
+}
