@@ -20,6 +20,7 @@ a {
 }
 #head-bar, #footer{
   /*border-bottom: 1px solid #4d7a89;*/
+  
   background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
 }
 
@@ -117,4 +118,49 @@ ul {
   bottom:51px;
   right: 4vw;
   position: absolute;
+}
+
+.separator {
+  border: .05rem solid #4d7a89;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding: 0;
+}
+
+
+#sotto {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	line-height: 5vh;
+	height: 5vh;
+	width: 110px;
+	color:#4d7a89;
+	background-image: linear-gradient(114deg, #4fb6d8, #4d7a89);
+}
+
+#sopra {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	line-height: 5vh;
+	height: 5vh;
+	width: 110px;
+	color: white;
+  margin-top: -5vh;
+}
+
+.logo{
+  margin: auto;
+}
+
+#ending {
+  text-align: center;
+}
+
+#back {
+  right: 0px;
+  margin-right: 6vw;
+  position: absolute;
+  top:10vh;
 }
