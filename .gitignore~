@@ -1,0 +1,10 @@
+*DS_STORE
+.ipynb_checkpoints
+*.csv
+.idea
+__pycache__
+web_server/leSirenuse/media/
+/EMPORIOSIRENUSE_20173012
+._*
+web_server/leSirenuse/static/admin
+followers_classification/data
