@@ -24,7 +24,7 @@ class Main:
         self.save_path = save_path
         self.user_list_path = user_path
         
-    #helper function to get User List   
+    #Helper function to get User List   
     def get_user_list(self):
         with open(self.user_list_path, encoding="ISO-8859-1") as f:
             content = f.readlines()
@@ -42,7 +42,10 @@ class Main:
             for j in glob.glob(temp_path + '/*.jpg'):
                 temp_dict = {}
                 file_name = j.replace(temp_path,'')[1:]
-                img = image.load_img(j, target_size=(64, 64))
+                try:
+                    img = image.load_img(j, target_size=(64, 64))
+                except OSError:
+                    continue
                 try:
                     with open(j[:-4]+'.txt', encoding="utf-8") as f:
                         content = f.readlines()
