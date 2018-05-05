@@ -1,0 +1,28 @@
+
+.opacity {
+  opacity: 0.4;
+}
+
+
+.tag {
+    display: inline-block;
+    margin: 2px 2px 2px 2px;
+		color: white;
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 5px;
+    font-size: 18;
+}
+
+
+.domain {
+stroke:  #578290;
+}
+
+.tick {
+	display: none;
+}
+
+
+.scatter-title {
+  fill:  #578290;
+}

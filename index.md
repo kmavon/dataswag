@@ -3,25 +3,32 @@
 
 ### Contents
 
-1. [Introduction](#introduction)
-2. [Project Scope and Outline](#project-scope-and-outline)
-3. [Users Clustering](#users-clustering)
-4. [Content Recommendation](#content-recommendation)
-5. [Followers Classification](#followers-classification)
-6. [The Tool - Frank](#the-tool---frank)
-7. [Conclusions and Future Work](#conclusions-and-future-work)
+1. [Introduction and Scope](#introduction-and-scope)
+2. [Users Clustering](#users-clustering)
+3. [Content Recommendation](#content-recommendation)
+4. [Followers Classification](#followers-classification)
+5. [The Tool - Frank](#the-tool---frank)
+6. [Conclusions and Future Work](#conclusions-and-future-work)
 
-### Introduction
-Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. Right in front of the hotel, in the Emporio Sirenuse store, tourists and guests can find a collection of dresses and swimwear perfectly aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different others online channels. Both the hotel and the store have an official Instagram account, the first one having a much bigger influence with respect to the one of the store. In this setting we were asked to find a way to improve the online presence of the clothing brand by leveraging social media platforms; while protecting its
-heritage, we wanted to enhance the popularity of the
-fashion brand independently.
-### Project Scope and Outline
-In order to improve the social media presence of the brand and produce relevant insights for the brand managers we decided that we needed to intervene on two fronts: we would need to identify and characterize communities of users among the followers of the brand and its competitors; given that information we would need to allow the brand to post relevant content for the communities it decided to target, by giving them a metric of relevance.
+### Introduction and Scope
+Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. Right in front of the hotel, in the Emporio Sirenuse store, tourists and guests can find a collection of dresses and swimwear perfectly aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different others online channels. Both the hotel and the store have an official Instagram account, the first one having a much bigger influence with respect to the one of the store. In this setting we were asked to find a way to improve the online presence of the clothing brand by leveraging social media platforms; while protecting its heritage, we wanted to enhance the popularity of the fashion brand independently.
 
-In order to accomplish those two goals we thought of a complete pipeline that would incorporate two phases: the first phase would detect communities of users based on their content (pictures and captions); the second one instead, given a set of pictures that the user would like to post, would rank those pictures based on a target community chosen by the user among the ones found during the first phase.
-
+In order to improve the social media presence of the brand and produce relevant insights for the brand managers we needed to intervene on two fronts: we had to identify and characterize communities of users among the followers of the brand and its competitors; given that information we would allow the brand to post relevant content for the community it decides to target. To accomplish those two goals we thought of a complete pipeline that would incorporate two phases: in the first phase we detect communities of users based on their content (pictures and captions); the second one instead, given a set of pictures that the user would like to post, ranks those pictures based on the target community chosen by the user among the ones found during the first phase.
 ![Project Pipeline](img/svg-toolstructure.png)
+
 ### Users Clustering
+We were given access to a dataset composed of Instagram data from the accounts of Emporio Sirenuse and its followers, along with the accounts of 9 other competitors and their followers. We want to:                           
+
+1. Identify methods for feature detection from Social Media text and image data.
+2. Cluster Instagram posts of the client’s followers using these features.
+3. Detect latent communities based on the distribution of  user posts in different clusters.
+
+This is a difficult task since social media data, while being complex and composed of heterogeneous components (text, image, geo-tags, hashtags, mentions...etc), tends to be very abstract and hard to ascertain. Moreover this heterogeneity also translates into completely different feature detection methods, which are hard to integrate and validate in an unsupervised learning setting like ours.
+
+##### Clustering
+We intend to cluster users into specific communities, based on their Instagram activity. In order to do that we cluster all their instagram posts into general clusters, which can be thought of as standard units and then we cluster the users based on their representation in these standard units. This allows us to find communities of users that share interests, and post about the same topics in the same measure.
+
+This clustering system is hinged on finding a latent space that accurately sepearates the posts based on their features and characteristics.
 ### Content Recommendation
 ### Followers Classification
 ### The tool - Frank

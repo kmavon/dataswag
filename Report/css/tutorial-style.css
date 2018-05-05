@@ -54,7 +54,7 @@ a {
 }
 
 #start-button{
-  margin-top: 10vh;
+  margin-top: 12vh;
   text-align: center;
 }
 
@@ -163,4 +163,8 @@ ul {
   margin-right: 6vw;
   position: absolute;
   top:10vh;
+}
+
+.paragraph {
+    text-align: justify;
 }
