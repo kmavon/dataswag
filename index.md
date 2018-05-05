@@ -30,6 +30,33 @@ We intend to cluster users into specific communities, based on their Instagram a
 
 This clustering system is hinged on finding a latent space that accurately sepearates the posts based on their features and characteristics.
 ### Content Recommendation
+[Kimia Wrote- feel free to edit, restyle, etc]
+### Ranking
+From the clustering, we have an understanding of the underlying communities of users. 
+
+The intended user, a social media manager for example, will upload his or her pictures (from a photoshoot) to the tool. His/Her goal is to post a picture that best appeals to a chosen community. In other words, the social media manager wants to optimize his/her post for a given community. 
+
+A post can be optimized by two metrics: 1) Whether a post will be similar to a community and 2) Whether a post will be popular to a community.  The later requires an “engagement metric,” or a score that reflects the likelihood it will 
+
+We address these two issues below. 
+
+#### Community Similarity 
+Each picture uploaded by the social media manager is passed through the clustering algorithm, and receives a probability score that the picture belongs to each community. The probability scores that a given picture belongs to each community sums to one. Each community also has its own distribution- the compilation of images that have been passed through the clustering algorithm. 
+
+Thus, we have probability distributions that we may measure the similarity between using the Kullback-Leibler Divergence (often shortened to just KL divergence). 
+
+KL Divergences measure the difference between two probability distributions, $p ( x )$ and $q ( x )$ : $$ D ( p \| q ) = \sum _ { x } p ( x ) \log \frac { p ( x ) } { q ( x ) }$$ 
+
+$D$ is nonnegative, asymmetric, zero if and only if $p$ = $q$. Therefore, a lower KL divergence score suggests the two distributions are more similar. 
+
+Once the social media manager identifies the community he/she would like to optimize for, the 
+
+Therefore, we can quantitatively measure the similarity or difference between an uploaded picture and the community. Each uploaded picture is iterated and a KL divergence score is computed by comparing each picture’s distribution with the target communities distribution. The KL scores and then ranked, from lowest to highest, to suggest which pictures best match the target communities’ images. 
+
+#### Engagement 
+
+
+
 ### Followers Classification
 ### The tool - Frank
 ![Ranking](img/ranking-crop.png)
